@@ -1,4 +1,5 @@
 from Bio.PDB import PDBParser
+import numpy as np
 
 class Atom:
     def __init__(self, name, atom_type, coord):
@@ -37,3 +38,36 @@ class Protein:
                         coord = atom.get_coord()
                         new_atom = Atom(name, atom_type, coord)
                         self.add_atom(new_atom)
+                        
+class Sphere:
+    def __init__(self, n_points=100):
+        self.n_points = n_points
+        self.unit_sphere_points = self._generate_unit_sphere_points()
+    
+    def _generate_unit_sphere_points(self): # Sphere of radius 1 to reescale after
+        points = []
+        inc = np.pi * (3 - np.sqrt(5))  # Calculate the golden angle for point distribution
+        offset = 2 / self.n_points  # Determine vertical spacing between points
+
+        for i in range(self.n_points):
+            y = i * offset - 1 + (offset / 2)  
+            r = np.sqrt(1 - y * y)  
+            phi = i * inc  
+            x = np.cos(phi) * r  
+            z = np.sin(phi) * r  
+    
+            points.append([x, y, z])  
+        
+        return np.array(points)
+
+    
+    def get_adjusted_points(self, center_atom): # Rescale and relocate sphere
+        adjusted_points = []
+        radius = center_atom.rad_vdw
+        cx, cy, cz = center_atom.x, center_atom.y, center_atom.z
+        for x, y, z in self.unit_sphere_points:
+            adj_x = x * radius + cx
+            adj_y = y * radius + cy
+            adj_z = z * radius + cz
+            adjusted_points.append([adj_x, adj_y, adj_z])
+        return np.array(adjusted_points)
