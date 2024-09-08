@@ -5,39 +5,58 @@ class Atom:
     def __init__(self, name, atom_type, coord):
         self.name = name
         self.type = atom_type
-        self.x = coord[0]
-        self.y = coord[1]
-        self.z = coord[2]
+        self.coord = np.array(coord)
         self.rad_vdw = ATOM_VdW.get(atom_type)
+        self.neighbors = []
 
     def __str__(self):
-        return f"atom {self.name}, type {self.type}, Van der Waals radius = {self.rad_vdw:.1f} A, coordinates ({self.x:.3f}, {self.y:.3f}, {self.z:.3f})"
+        return f"Atom {self.name}, Type {self.type}, Van der Waals Radius: {self.rad_vdw:.1f}, Coordinates: ({self.coord[0]:.3f}, {self.coord[1]:.3f}, {self.coord[2]:.3f})"
 
     def calc_distance(self, other):
-        return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2 + (self.z - other.z) ** 2) ** 0.5
+        return np.linalg.norm(self.coord - other.coord)
     
-
+    def add_neighbor(self, other):
+        self.neighbors.append(other)
+    
+    
 class Protein:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, filepath):
         self.list_atoms = []
+        self._build_mlc_from_pdb(filepath)
+        self.distance_matrix = self.calculate_distances() 
         
     def add_atom(self, atom):
         if isinstance(atom, Atom):
             self.list_atoms.append(atom)
     
-    def build_mlc_from_pdb(self, filename):
+    def _build_mlc_from_pdb(self, filepath):
         parser = PDBParser()
-        structure = parser.get_structure(self.name, filename)
+        structure_id = filepath.split('/')[-1].split('.')[0]  # A safe way to extract a structure ID based on filepath
+        structure = parser.get_structure(structure_id, filepath)
         for model in structure:
             for chain in model:
                 for residue in chain:
-                    for atom in residue:
-                        name = atom.get_name()
-                        atom_type = atom.element
-                        coord = atom.get_coord()
+                    for pdb_atom in residue.get_atoms():  # Ensure using get_atoms() method
+                        name = pdb_atom.get_name()
+                        atom_type = pdb_atom.element
+                        coord = np.array(pdb_atom.get_coord())
                         new_atom = Atom(name, atom_type, coord)
                         self.add_atom(new_atom)
+
+    def calculate_distances(self):
+        n = len(self.list_atoms)
+        distance_matrix = np.zeros((n, n))
+        for i in range(n):
+            for j in range(i + 1, n):
+                dist = self.list_atoms[i].calc_distance(self.list_atoms[j])
+                distance_matrix[i][j] = dist
+                distance_matrix[j][i] = dist
+        return distance_matrix
+    
+    def determine_neighbors(self, atom_index, cutoff=15):
+        for j in range(len(self.list_atoms)):
+            if j != atom_index and self.distance_matrix[atom_index][j] < cutoff:
+                self.list_atoms[atom_index].add_neighbor(self.list_atoms[j])
                         
 class Sphere:
     def __init__(self, n_points=100):
@@ -60,14 +79,68 @@ class Sphere:
         
         return np.array(points)
 
-    
-    def get_adjusted_points(self, center_atom): # Rescale and relocate sphere
+    def rescale_sphere(self, center_atom): # Rescale and relocate sphere
         adjusted_points = []
+        
         radius = center_atom.rad_vdw
-        cx, cy, cz = center_atom.x, center_atom.y, center_atom.z
-        for x, y, z in self.unit_sphere_points:
-            adj_x = x * radius + cx
-            adj_y = y * radius + cy
-            adj_z = z * radius + cz
-            adjusted_points.append([adj_x, adj_y, adj_z])
-        return np.array(adjusted_points)
+        cx, cy, cz = center_atom.coord
+        
+        adjusted_points = (self.unit_sphere_points * radius) + np.array([cx, cy, cz])
+        
+        return adjusted_points
+ 
+def calculate_distances_from_sphere_to_neighbors(atom, sphere, protein, sonde):
+    rescaled_sphere_points = sphere.rescale_sphere(atom)
+    accessible_points = []
+    for point in rescaled_sphere_points:
+        is_accessible = True
+        for neighbor in atom.neighbors:
+            distance_to_neighbor = np.linalg.norm(point - neighbor.coord)
+            if distance_to_neighbor < (neighbor.rad_vdw + sonde): 
+                is_accessible = False
+                break 
+
+        if is_accessible:
+            accessible_points.append(point)
+
+    return accessible_points, {}
+
+
+def SASA(filepath):
+    protein = Protein(filepath)
+    sphere = Sphere(100)
+    
+    for i, atom in enumerate(protein.list_atoms):
+        protein.determine_neighbors(i, cutoff=15)
+        
+        accessible_points, neighbor_distances = calculate_distances_from_sphere_to_neighbors(atom, sphere, protein, sonde=1.4)
+        
+        print(f"Atom {atom.name}: {len(accessible_points)} accessible points")
+        
+
+ATOM_VdW = {
+        "H": 1.200,
+        "HE": 1.400,
+        "C": 1.700,
+        "N": 1.550,
+        "O": 1.520,
+        "F": 1.470,
+        "NA": 2.270,
+        "MG": 1.730,
+        "P": 1.800,
+        "S": 1.800,
+        "CL": 1.750,
+        "K": 2.750,
+        "CA": 2.310,
+        "NI": 1.630,
+        "CU": 1.400,
+        "ZN": 1.390,
+        "SE": 1.900,
+        "BR": 1.850,
+        "CD": 1.580,
+        "I": 1.980,
+        "HG": 1.550,
+    }
+    
+if __name__ == "__main__":
+    SASA("/Users/jorge/Library/Mobile Documents/com~apple~CloudDocs/Downloads/1a5d.pdb")
