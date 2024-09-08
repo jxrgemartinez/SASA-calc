@@ -2,19 +2,25 @@ from Bio.PDB import PDBParser
 import numpy as np
 
 class Atom:
-    def __init__(self, name, atom_type, coord):
-        self.name = name
-        self.type = atom_type
-        self.coord = np.array(coord)
-        self.rad_vdw = ATOM_VdW.get(atom_type)
+    def __init__(self, serial, name, atom_type, aa_name, aa_number, chain_id, coord):
+        self.serial = serial  # Atom number 
+        self.name = name  # Atom name
+        self.type = atom_type  # Element type
+        self.aa_name = aa_name  # Amino acid name
+        self.aa_number = aa_number  # Amino acid sequence number
+        self.chain_id = chain_id  # Chain identifier
+        self.coord = np.array(coord)  
+        self.rad_vdw = ATOM_VdW.get(atom_type, 1.0)
         self.neighbors = []
 
     def __str__(self):
-        return f"Atom {self.name}, Type {self.type}, Van der Waals Radius: {self.rad_vdw:.1f}, Coordinates: ({self.coord[0]:.3f}, {self.coord[1]:.3f}, {self.coord[2]:.3f})"
+        return (f"Atom {self.serial}, {self.name}, Type {self.type}, Amino Acid: {self.aa_name} {self.aa_number}, "
+                f"Chain: {self.chain_id}, VdW Radius: {self.rad_vdw:.1f}, "
+                f"Coordinates: ({self.coord[0]:.3f}, {self.coord[1]:.3f}, {self.coord[2]:.3f})")
 
     def calc_distance(self, other):
         return np.linalg.norm(self.coord - other.coord)
-    
+
     def add_neighbor(self, other):
         self.neighbors.append(other)
     
@@ -30,17 +36,21 @@ class Protein:
             self.list_atoms.append(atom)
     
     def _build_mlc_from_pdb(self, filepath):
-        parser = PDBParser()
-        structure_id = filepath.split('/')[-1].split('.')[0]  # A safe way to extract a structure ID based on filepath
+        parser = PDBParser(QUIET=True)
+        structure_id = filepath.split('/')[-1].split('.')[0]
         structure = parser.get_structure(structure_id, filepath)
         for model in structure:
             for chain in model:
                 for residue in chain:
-                    for pdb_atom in residue.get_atoms():  # Ensure using get_atoms() method
-                        name = pdb_atom.get_name()
-                        atom_type = pdb_atom.element
-                        coord = np.array(pdb_atom.get_coord())
-                        new_atom = Atom(name, atom_type, coord)
+                    aa_name = residue.resname  # Get the amino acid name
+                    aa_number = residue.get_id()[1]  # Get the sequence number of the amino acid
+                    chain_id = chain.id  # Chain identifier
+                    for atom in residue.get_atoms():
+                        serial = atom.serial_number
+                        name = atom.get_name()
+                        atom_type = atom.element
+                        coord = atom.get_coord()
+                        new_atom = Atom(serial, name, atom_type, aa_name, aa_number, chain_id, coord)
                         self.add_atom(new_atom)
 
     def calculate_distances(self):
