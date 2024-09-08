@@ -91,18 +91,14 @@ class Sphere:
         
         return np.array(points)
 
-    def rescale_sphere(self, center_atom): # Rescale and relocate sphere
-        adjusted_points = []
+    def rescale_sphere(self, center_atom, sonde_radius):
         
-        radius = center_atom.rad_vdw
-        cx, cy, cz = center_atom.coord
-        
-        adjusted_points = (self.unit_sphere_points * radius) + np.array([cx, cy, cz])
-        
+        radius = center_atom.rad_vdw + sonde_radius
+        adjusted_points = (self.unit_sphere_points * radius) + center_atom.coord
         return adjusted_points
  
 def calculate_distances_from_sphere_to_neighbors(atom, sphere, protein, sonde):
-    rescaled_sphere_points = sphere.rescale_sphere(atom)
+    rescaled_sphere_points = sphere.rescale_sphere(atom, sonde)
     accessible_points = []
     for point in rescaled_sphere_points:
         is_accessible = True
@@ -121,30 +117,26 @@ def calculate_distances_from_sphere_to_neighbors(atom, sphere, protein, sonde):
 def SASA(filepath, num_points=100, sonde_radius=1.4):
     protein = Protein(filepath)
     sphere = Sphere(num_points)
-    absolute_sasa = 0
-    relative_sasa = 0
+    total_sasa = 0
+    atom_sasas = []
     
-    atom_sasa_abs = []
-    atom_sasa_rel = []
-    
-
     for atom in protein.list_atoms:
-        atom_index = protein.atom_index_map[atom.serial]  # Use the map to get the correct index
+        atom_index = protein.atom_index_map[atom.serial]
         protein.determine_neighbors(atom_index, cutoff=10)
-        
         accessible_points, _ = calculate_distances_from_sphere_to_neighbors(atom, sphere, protein, sonde_radius)
         
-        sphere_area = 4 * np.pi * (atom.rad_vdw)**2
-        relative_area = len(accessible_points) / num_points
-        accessible_area = (relative_area) * sphere_area
+        sphere_area = 4 * np.pi * (atom.rad_vdw + sonde_radius)**2
+        accessible_area = (len(accessible_points) / num_points) * sphere_area
+        atom_sasas.append(accessible_area)
         
-        absolute_sasa += accessible_area
-        relative_sasa += relative_area / 100
-        atom_sasa_abs.append(accessible_area)
-        atom_sasa_rel.append(relative_area / 100)
+    total_sasa = sum(atom_sasas)
+    relative_sasas = [(sasa / total_sasa * 100) if total_sasa != 0 else 0 for sasa in atom_sasas]
 
-    print(f"Total Solvent Accessible Surface Area: {absolute_sasa:.2f} Å²")
-    print(f"Relative Solvent Accessible Surface Area: {relative_sasa:.2f}")
+    print(f"Total Solvent Accessible Surface Area: {total_sasa:.2f} Å²")
+    for i, rel_sasa in enumerate(relative_sasas, start=1):
+        print(f"Atom {i} Relative SASA: {rel_sasa:.2f}%")
+
+    return total_sasa, relative_sasas
       
 
 ATOM_VdW = {
