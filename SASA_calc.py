@@ -28,12 +28,14 @@ class Atom:
 class Protein:
     def __init__(self, filepath):
         self.list_atoms = []
+        self.atom_index_map = {}
         self._build_mlc_from_pdb(filepath)
-        self.distance_matrix = self.calculate_distances() 
-        
+        self.distance_matrix = self.calculate_distances()
+
     def add_atom(self, atom):
         if isinstance(atom, Atom):
             self.list_atoms.append(atom)
+            self.atom_index_map[atom.serial] = len(self.list_atoms) - 1
     
     def _build_mlc_from_pdb(self, filepath):
         parser = PDBParser(QUIET=True)
@@ -63,7 +65,7 @@ class Protein:
                 distance_matrix[j][i] = dist
         return distance_matrix
     
-    def determine_neighbors(self, atom_index, cutoff=15):
+    def determine_neighbors(self, atom_index, cutoff=10):
         for j in range(len(self.list_atoms)):
             if j != atom_index and self.distance_matrix[atom_index][j] < cutoff:
                 self.list_atoms[atom_index].add_neighbor(self.list_atoms[j])
@@ -106,7 +108,7 @@ def calculate_distances_from_sphere_to_neighbors(atom, sphere, protein, sonde):
         is_accessible = True
         for neighbor in atom.neighbors:
             distance_to_neighbor = np.linalg.norm(point - neighbor.coord)
-            if distance_to_neighbor < (neighbor.rad_vdw + sonde): 
+            if distance_to_neighbor < (neighbor.rad_vdw + 2 * sonde): 
                 is_accessible = False
                 break 
 
@@ -116,17 +118,34 @@ def calculate_distances_from_sphere_to_neighbors(atom, sphere, protein, sonde):
     return accessible_points, {}
 
 
-def SASA(filepath):
+def SASA(filepath, num_points=100, sonde_radius=1.4):
     protein = Protein(filepath)
-    sphere = Sphere(100)
+    sphere = Sphere(num_points)
+    absolute_sasa = 0
+    relative_sasa = 0
     
-    for i, atom in enumerate(protein.list_atoms):
-        protein.determine_neighbors(i, cutoff=15)
+    atom_sasa_abs = []
+    atom_sasa_rel = []
+    
+
+    for atom in protein.list_atoms:
+        atom_index = protein.atom_index_map[atom.serial]  # Use the map to get the correct index
+        protein.determine_neighbors(atom_index, cutoff=10)
         
-        accessible_points, neighbor_distances = calculate_distances_from_sphere_to_neighbors(atom, sphere, protein, sonde=1.4)
+        accessible_points, _ = calculate_distances_from_sphere_to_neighbors(atom, sphere, protein, sonde_radius)
         
-        print(f"Atom {atom.name}: {len(accessible_points)} accessible points")
+        sphere_area = 4 * np.pi * (atom.rad_vdw)**2
+        relative_area = len(accessible_points) / num_points
+        accessible_area = (relative_area) * sphere_area
         
+        absolute_sasa += accessible_area
+        relative_sasa += relative_area / 100
+        atom_sasa_abs.append(accessible_area)
+        atom_sasa_rel.append(relative_area / 100)
+
+    print(f"Total Solvent Accessible Surface Area: {absolute_sasa:.2f} Å²")
+    print(f"Relative Solvent Accessible Surface Area: {relative_sasa:.2f}")
+      
 
 ATOM_VdW = {
         "H": 1.200,
