@@ -128,7 +128,14 @@ class Protein:
             atom.rel_sasa = (atom.abs_sasa / total_abs_sasa * 100) if total_abs_sasa > 0 else 0
             
         self.total_absolute_sasa = total_abs_sasa
-
+        
+    def print_sasa_report(self):
+        print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8} {:>8}".format("ATOM", "NAME", "TYPE", "AA", "NUM", "CHAIN", "ABS_SASA", "REL_SASA"))
+        for atom in self.list_atoms:
+            print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8.2f} {:>8.1f}".format(atom.serial, atom.name, atom.type, atom.aa_name, atom.aa_number, atom.chain_id, atom.abs_sasa, atom.rel_sasa))
+            
+        print("{:>5} {:>3} {:>4} {:>4} {:>5} {:>5} {:>8.2f} {:>8}".format("TOTAL", "", "", "", "", "", self.total_absolute_sasa, ""))
+        
                                
 class Sphere:
     def __init__(self, n_points=100):
@@ -162,4 +169,4 @@ class Sphere:
 if __name__ == "__main__":
     protein = Protein("/Users/jorge/Library/Mobile Documents/com~apple~CloudDocs/Downloads/1a5d.pdb")
     protein.calculate_sasa()
-    print(f"Total absolute SASA: {protein.total_absolute_sasa:.2f} A^2")
+    print(protein.print_sasa_report())
