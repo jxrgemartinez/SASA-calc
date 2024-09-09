@@ -1,3 +1,4 @@
+import os
 from Bio.PDB import PDBParser
 import numpy as np
 
@@ -48,6 +49,9 @@ class Atom:
     
 class Protein:
     def __init__(self, filepath, model_index=0):
+        if not os.path.exists(filepath):
+            raise FileNotFoundError(f"File does not exist: {filepath}")
+        
         self.list_atoms = []
         self.atom_index_map = {}
         self._build_mlc_from_pdb(filepath, model_index)
@@ -62,8 +66,15 @@ class Protein:
     def _build_mlc_from_pdb(self, filepath, model_index):
         parser = PDBParser(QUIET=True)
         structure_id = filepath.split('/')[-1].split('.')[0]
+        
+        # Load structure
         structure = parser.get_structure(structure_id, filepath)
-        model = structure[model_index]
+        
+        # Check if the model_index is valid
+        try:
+            model = structure[model_index]
+        except IndexError:
+            raise IndexError(f"Model index {model_index} is out of bounds. Structure only has {len(structure)} models.")
         
         for chain in model:
             for residue in chain:
@@ -166,6 +177,10 @@ class Sphere:
 
   
 def print_sasa_report(protein, output_type="total"):
+    possible_arguments = ["total", "atomic", "residue"]
+    if output_type not in possible_arguments:
+        raise ValueError(f"Invalid output type. Possible types are {possible_arguments}")
+    
     if output_type == "atomic":
         print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8} {:>8}".format("ATOM", "NAME", "TYPE", "RES", "NUM", "CHAIN", "ABS_SASA", "REL_SASA"))
         
