@@ -128,28 +128,6 @@ class Protein:
             atom.rel_sasa = (atom.abs_sasa / total_abs_sasa * 100) if total_abs_sasa > 0 else 0
             
         self.total_absolute_sasa = total_abs_sasa
-        
-    def print_sasa_report(self):
-        print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8} {:>8}".format("ATOM", "NAME", "TYPE", "AA", "NUM", "CHAIN", "ABS_SASA", "REL_SASA"))
-        
-        chain_sasa = {}
-        
-        for atom in self.list_atoms:
-            print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8.2f} {:>8.1f}".format(atom.serial, atom.name, atom.type, atom.aa_name, atom.aa_number, atom.chain_id, atom.abs_sasa, atom.rel_sasa))
-            
-            chain_id = atom.chain_id
-            
-            if chain_id in chain_sasa:
-                chain_sasa[chain_id]["abs"] += atom.abs_sasa
-                chain_sasa[chain_id]["rel"] += atom.rel_sasa
-            else:
-                chain_sasa[chain_id] = {"abs" : atom.abs_sasa, "rel" : atom.rel_sasa}
-         
-        for chain, sasa_value in chain_sasa.items():
-            print("{:>5} {:>3} {:>4} {:>4} {:>5} {:>5} {:>8.2f} {:>8.2f}".format("CHAIN", "", "", "", "", chain, sasa_value["abs"], sasa_value["rel"]))
-           
-        print("{:>5} {:>3} {:>4} {:>4} {:>5} {:>5} {:>8.2f} {:>8}".format("TOTAL", "", "", "", "", "", self.total_absolute_sasa, ""))
-        
                                
 class Sphere:
     def __init__(self, n_points=100):
@@ -179,8 +157,50 @@ class Sphere:
         
         return adjusted_points
 
+  
+def print_sasa_report(protein, output_type="total"):
+    if output_type == "atomic":
+        print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8} {:>8}".format("ATOM", "NAME", "TYPE", "RES", "NUM", "CHAIN", "ABS_SASA", "REL_SASA"))
+        
+        for atom in protein.list_atoms:
+            print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8.2f} {:>8.1f}".format(atom.serial, atom.name, atom.type, atom.aa_name, atom.aa_number, atom.chain_id, atom.abs_sasa, atom.rel_sasa))
     
+    if output_type == "total":
+        print("{:>5} {:>3} {:>4} {:>4} {:>5} {:>5} {:>8.2f}".format("TOTAL", "", "", "", "", "", protein.total_absolute_sasa))
+    
+    if output_type == "residue":
+        chain_sasa = {}
+        amino_acid_sasa = {}
+        
+        for atom in protein.list_atoms:
+            chain_id = atom.chain_id
+            aa_key = (atom.aa_name, atom.aa_number, atom.chain_id)
+            
+            if chain_id in chain_sasa:
+                chain_sasa[chain_id]["abs"] += atom.abs_sasa
+                chain_sasa[chain_id]["rel"] += atom.rel_sasa
+            else:
+                chain_sasa[chain_id] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
+        
+            if aa_key in amino_acid_sasa:
+                amino_acid_sasa[aa_key]["abs"] += atom.abs_sasa
+                amino_acid_sasa[aa_key]["rel"] += atom.rel_sasa
+            else:
+                amino_acid_sasa[aa_key] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
+        
+        print("{:>4} {:>4} {:>5} {:>8} {:>8}".format("RES", "NUM", "CHAIN", "ABS", "REL"))
+        for aa_key, sasa_value in amino_acid_sasa.items():
+            print("{:>4} {:>4} {:>5} {:>8.2f} {:>8.1f}".format(aa_key[0], aa_key[1], aa_key[2], sasa_value["abs"], sasa_value["rel"]))
+        
+        print("\nAbsolute sums over single chains surface areas")
+        for chain, sasa_value in chain_sasa.items():
+            print("{:>5} {:>4} {:>8.2f} {:>8.1f}".format("CHAIN", chain, sasa_value["abs"], sasa_value["rel"]))
+
+        print("\nAbsolute sums over all chains")
+        print("{:>5} {:>4} {:>8.2f}".format("TOTAL", "", protein.total_absolute_sasa))
+
+            
 if __name__ == "__main__":
     protein = Protein("/Users/jorge/Library/Mobile Documents/com~apple~CloudDocs/Downloads/1a5d.pdb")
     protein.calculate_sasa()
-    protein.print_sasa_report()
+    print_sasa_report(protein, "residue")
