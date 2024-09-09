@@ -47,10 +47,10 @@ class Atom:
     
     
 class Protein:
-    def __init__(self, filepath):
+    def __init__(self, filepath, model_index=0):
         self.list_atoms = []
         self.atom_index_map = {}
-        self._build_mlc_from_pdb(filepath)
+        self._build_mlc_from_pdb(filepath, model_index)
         self.distance_matrix = self.calculate_distances()
         self.total_absolute_sasa = 0 
 
@@ -59,23 +59,23 @@ class Protein:
             self.list_atoms.append(atom)
             self.atom_index_map[atom.serial] = len(self.list_atoms) - 1
     
-    def _build_mlc_from_pdb(self, filepath):
+    def _build_mlc_from_pdb(self, filepath, model_index):
         parser = PDBParser(QUIET=True)
         structure_id = filepath.split('/')[-1].split('.')[0]
         structure = parser.get_structure(structure_id, filepath)
-        for model in structure:
-            for chain in model:
-                for residue in chain:
-                    aa_name = residue.resname  # Get the amino acid name
-                    aa_number = residue.get_id()[1]  # Get the sequence number of the amino acid
-                    chain_id = chain.id  # Get chain
-                    for atom in residue.get_atoms():
-                        serial = atom.serial_number
-                        name = atom.get_name()
-                        atom_type = atom.element
-                        coord = atom.get_coord()
-                        new_atom = Atom(serial, name, atom_type, aa_name, aa_number, chain_id, coord)
-                        self.add_atom(new_atom)
+        model = structure[model_index]
+        for chain in model:
+            for residue in chain:
+                aa_name = residue.resname  # Get the amino acid name
+                aa_number = residue.get_id()[1]  # Get the sequence number of the amino acid
+                chain_id = chain.id  # Get chain
+                for atom in residue.get_atoms():
+                    serial = atom.serial_number
+                    name = atom.get_name()
+                    atom_type = atom.element
+                    coord = atom.get_coord()
+                    new_atom = Atom(serial, name, atom_type, aa_name, aa_number, chain_id, coord)
+                    self.add_atom(new_atom)
 
     def calculate_distances(self): # Create a distance matrix for all atoms
         n = len(self.list_atoms)
@@ -87,7 +87,7 @@ class Protein:
                 distance_matrix[j][i] = dist
         return distance_matrix
     
-    def determine_neighbors(self, atom_index, cutoff=10):
+    def determine_neighbors(self, atom_index, cutoff=15):
         # Take the row of each atom in the distance matrix and add coundt as neighbors the ones that are closer than the cutoff
         for j in range(len(self.list_atoms)):
             if j != atom_index and self.distance_matrix[atom_index][j] < cutoff:
@@ -100,7 +100,7 @@ class Protein:
         # Calculate the absolute SASA for each atom
         for atom in self.list_atoms:
             atom_index = self.atom_index_map[atom.serial]
-            self.determine_neighbors(atom_index, cutoff=10)
+            self.determine_neighbors(atom_index)
 
             rescaled_sphere_points = sphere.rescale_sphere(atom, sonde_radius)
             accessible_points = 0
@@ -201,6 +201,6 @@ def print_sasa_report(protein, output_type="total"):
 
             
 if __name__ == "__main__":
-    protein = Protein("/Users/jorge/Library/Mobile Documents/com~apple~CloudDocs/Downloads/1a5d.pdb")
+    protein = Protein("/Users/jorge/Library/Mobile Documents/com~apple~CloudDocs/Downloads/6fqf.pdb")
     protein.calculate_sasa()
     print_sasa_report(protein, "residue")
