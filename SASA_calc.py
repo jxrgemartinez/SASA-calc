@@ -64,16 +64,23 @@ class Protein:
         structure_id = filepath.split('/')[-1].split('.')[0]
         structure = parser.get_structure(structure_id, filepath)
         model = structure[model_index]
+        
         for chain in model:
             for residue in chain:
+                if residue.get_resname() == 'HOH':
+                    continue  # Skip water molecules
+                
                 aa_name = residue.resname  # Get the amino acid name
                 aa_number = residue.get_id()[1]  # Get the sequence number of the amino acid
+                
                 chain_id = chain.id  # Get chain
+                
                 for atom in residue.get_atoms():
                     serial = atom.serial_number
                     name = atom.get_name()
                     atom_type = atom.element
                     coord = atom.get_coord()
+                    
                     new_atom = Atom(serial, name, atom_type, aa_name, aa_number, chain_id, coord)
                     self.add_atom(new_atom)
 
@@ -110,7 +117,7 @@ class Protein:
                 
                 for neighbor in atom.neighbors:
                     distance_to_neighbor = np.linalg.norm(point - neighbor.coord)
-                    if distance_to_neighbor < (neighbor.rad_vdw + 2 * sonde_radius): 
+                    if distance_to_neighbor < (neighbor.rad_vdw + sonde_radius): 
                         is_accessible = False
                         break # Stop chechinkg other neighbors
 
@@ -201,6 +208,6 @@ def print_sasa_report(protein, output_type="total"):
 
             
 if __name__ == "__main__":
-    protein = Protein("/Users/jorge/Library/Mobile Documents/com~apple~CloudDocs/Downloads/6fqf.pdb")
+    protein = Protein("/Users/jorge/Library/Mobile Documents/com~apple~CloudDocs/Downloads/1l2y.pdb", model_index=1)
     protein.calculate_sasa()
     print_sasa_report(protein, "residue")
