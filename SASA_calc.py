@@ -1,6 +1,7 @@
 import os
 from Bio.PDB import PDBParser
 import numpy as np
+from multiprocessing import Manager
 
 ATOM_VdW = {
         "H": 1.200,
@@ -46,7 +47,6 @@ class Atom:
     def add_neighbor(self, other):
         self.neighbors.append(other)
     
-    
 class Protein:
     def __init__(self, filepath, model_index=0):
         if not os.path.exists(filepath):
@@ -56,7 +56,6 @@ class Protein:
         self.atom_index_map = {}
         self._build_mlc_from_pdb(filepath, model_index)
         self.distance_matrix = self.calculate_distances()
-        self.total_absolute_sasa = 0 
 
     def add_atom(self, atom):
         if isinstance(atom, Atom):
@@ -110,42 +109,7 @@ class Protein:
         for j in range(len(self.list_atoms)):
             if j != atom_index and self.distance_matrix[atom_index][j] < cutoff:
                 self.list_atoms[atom_index].add_neighbor(self.list_atoms[j])
-    
-    def calculate_sasa(self, num_points=100, sonde_radius=1.4):
-        sphere = Sphere(num_points) # Create the unit sphere
-        total_abs_sasa = 0
-
-        # Calculate the absolute SASA for each atom
-        for atom in self.list_atoms:
-            atom_index = self.atom_index_map[atom.serial]
-            self.determine_neighbors(atom_index)
-
-            rescaled_sphere_points = sphere.rescale_sphere(atom, sonde_radius)
-            accessible_points = 0
-
-            for point in rescaled_sphere_points:
-                is_accessible = True
-                
-                for neighbor in atom.neighbors:
-                    distance_to_neighbor = np.linalg.norm(point - neighbor.coord)
-                    if distance_to_neighbor < (neighbor.rad_vdw + sonde_radius): 
-                        is_accessible = False
-                        break # Stop chechinkg other neighbors
-
-                if is_accessible:
-                    accessible_points += 1
-            
-            sphere_area = 4 * np.pi * (atom.rad_vdw + sonde_radius)**2
-            accessible_area = (accessible_points / num_points) * sphere_area
-            
-            atom.abs_sasa = accessible_area
-            total_abs_sasa += accessible_area
-
-        # Calculate and store relative SASA for each atom
-        for atom in self.list_atoms:
-            atom.rel_sasa = (atom.abs_sasa / total_abs_sasa * 100) if total_abs_sasa > 0 else 0
-            
-        self.total_absolute_sasa = total_abs_sasa
+      
                                
 class Sphere:
     def __init__(self, n_points=100):
@@ -176,53 +140,86 @@ class Sphere:
         return adjusted_points
 
   
-def print_sasa_report(protein, output_type="total"):
-    possible_arguments = ["total", "atomic", "residue"]
-    if output_type not in possible_arguments:
-        raise ValueError(f"Invalid output type. Possible types are {possible_arguments}")
-    
-    if output_type == "atomic":
-        print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8} {:>8}".format("ATOM", "NAME", "TYPE", "RES", "NUM", "CHAIN", "ABS_SASA", "REL_SASA"))
-        
-        for atom in protein.list_atoms:
-            print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8.2f} {:>8.1f}".format(atom.serial, atom.name, atom.type, atom.aa_name, atom.aa_number, atom.chain_id, atom.abs_sasa, atom.rel_sasa))
-    
-    if output_type == "total":
-        print("{:>5} {:>3} {:>4} {:>4} {:>5} {:>5} {:>8.2f}".format("TOTAL", "", "", "", "", "", protein.total_absolute_sasa))
-    
-    if output_type == "residue":
-        chain_sasa = {}
-        amino_acid_sasa = {}
-        
-        for atom in protein.list_atoms:
-            chain_id = atom.chain_id
-            aa_key = (atom.aa_name, atom.aa_number, atom.chain_id)
-            
-            if chain_id in chain_sasa:
-                chain_sasa[chain_id]["abs"] += atom.abs_sasa
-                chain_sasa[chain_id]["rel"] += atom.rel_sasa
-            else:
-                chain_sasa[chain_id] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
-        
-            if aa_key in amino_acid_sasa:
-                amino_acid_sasa[aa_key]["abs"] += atom.abs_sasa
-                amino_acid_sasa[aa_key]["rel"] += atom.rel_sasa
-            else:
-                amino_acid_sasa[aa_key] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
-        
-        print("{:>4} {:>4} {:>5} {:>8} {:>8}".format("RES", "NUM", "CHAIN", "ABS", "REL"))
-        for aa_key, sasa_value in amino_acid_sasa.items():
-            print("{:>4} {:>4} {:>5} {:>8.2f} {:>8.1f}".format(aa_key[0], aa_key[1], aa_key[2], sasa_value["abs"], sasa_value["rel"]))
-        
-        print("\nAbsolute sums over single chains surface areas")
-        for chain, sasa_value in chain_sasa.items():
-            print("{:>5} {:>4} {:>8.2f} {:>8.1f}".format("CHAIN", chain, sasa_value["abs"], sasa_value["rel"]))
+class SASACalculator:
+    def __init__(self, protein, n_points=100, sonde_radius=1.4):
+        self.protein = protein
+        self.sphere = Sphere(n_points)
+        self.sonde_radius = sonde_radius
+        self.protein.total_absolute_sasa = 0  
 
-        print("\nAbsolute sums over all chains")
-        print("{:>5} {:>4} {:>8.2f}".format("TOTAL", "", protein.total_absolute_sasa))
+    def run(self):
+        for atom in self.protein.list_atoms:
+            atom_index = self.protein.atom_index_map[atom.serial]
+            self.protein.determine_neighbors(atom_index)
 
+            rescaled_sphere_points = self.sphere.rescale_sphere(atom, self.sonde_radius)
+            accessible_points = 0
+
+            for point in rescaled_sphere_points:
+                if all(np.linalg.norm(point - neighbor.coord) >= (neighbor.rad_vdw + self.sonde_radius) for neighbor in atom.neighbors):
+                    accessible_points += 1
+
+            sphere_area = 4 * np.pi * (atom.rad_vdw + self.sonde_radius) ** 2
+            accessible_area = (accessible_points / len(rescaled_sphere_points)) * sphere_area
+            atom.abs_sasa = accessible_area
+            self.protein.total_absolute_sasa += accessible_area  # Accumulate total SASA
+
+        for atom in self.protein.list_atoms:
+            atom.rel_sasa = (atom.abs_sasa / self.protein.total_absolute_sasa * 100) if self.protein.total_absolute_sasa > 0 else 0
+
+    def print_sasa_report(self, output_type="total"):
+        possible_arguments = ["total", "atomic", "residue"]
+        if output_type not in possible_arguments:
+            raise ValueError(f"Invalid output type. Possible types are {possible_arguments}")
+        
+        if output_type == "atomic":
+            print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8} {:>8}".format("ATOM", "NAME", "TYPE", "RES", "NUM", "CHAIN", "ABS_SASA", "REL_SASA"))
             
-if __name__ == "__main__":
-    protein = Protein("/Users/jorge/Library/Mobile Documents/com~apple~CloudDocs/Downloads/1l2y.pdb", model_index=1)
-    protein.calculate_sasa()
-    print_sasa_report(protein, "residue")
+            for atom in self.protein.list_atoms:
+                print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8.2f} {:>8.1f}".format(atom.serial, atom.name, atom.type, atom.aa_name, atom.aa_number, atom.chain_id, atom.abs_sasa, atom.rel_sasa))
+        
+        if output_type == "total":
+            print("{:>5} {:>3} {:>4} {:>4} {:>5} {:>5} {:>8.2f}".format("TOTAL", "", "", "", "", "", self.protein.total_absolute_sasa))
+        
+        if output_type == "residue":
+            chain_sasa = {}
+            amino_acid_sasa = {}
+            
+            for atom in self.protein.list_atoms:
+                chain_id = atom.chain_id
+                aa_key = (atom.aa_name, atom.aa_number, atom.chain_id)
+                
+                if chain_id in chain_sasa:
+                    chain_sasa[chain_id]["abs"] += atom.abs_sasa
+                    chain_sasa[chain_id]["rel"] += atom.rel_sasa
+                else:
+                    chain_sasa[chain_id] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
+            
+                if aa_key in amino_acid_sasa:
+                    amino_acid_sasa[aa_key]["abs"] += atom.abs_sasa
+                    amino_acid_sasa[aa_key]["rel"] += atom.rel_sasa
+                else:
+                    amino_acid_sasa[aa_key] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
+            
+            print("{:>4} {:>4} {:>5} {:>8} {:>8}".format("RES", "NUM", "CHAIN", "ABS", "REL"))
+            for aa_key, sasa_value in amino_acid_sasa.items():
+                print("{:>4} {:>4} {:>5} {:>8.2f} {:>8.1f}".format(aa_key[0], aa_key[1], aa_key[2], sasa_value["abs"], sasa_value["rel"]))
+            
+            print("\nAbsolute sums over single chains surface areas")
+            for chain, sasa_value in chain_sasa.items():
+                print("{:>5} {:>4} {:>8.2f} {:>8.1f}".format("CHAIN", chain, sasa_value["abs"], sasa_value["rel"]))
+
+            print("\nAbsolute sums over all chains")
+            print("{:>5} {:>4} {:>8.2f}".format("TOTAL", "", self.protein.total_absolute_sasa))
+
+           
+def run_calculator(protein):
+    calculator = SASACalculator(protein)
+    calculator.run()
+    return calculator
+
+if __name__ == '__main__':
+    protein = Protein("/Users/jorge/Library/Mobile Documents/com~apple~CloudDocs/Downloads/1a5d.pdb")
+    total_sasa = run_calculator(protein)
+    
+    total_sasa.print_sasa_report(output_type="total")
