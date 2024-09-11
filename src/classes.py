@@ -4,28 +4,51 @@ import numpy as np
 from multiprocessing import Pool
 
 ATOM_VdW = {
-        "H": 1.200,
-        "HE": 1.400,
-        "C": 1.700,
-        "N": 1.550,
-        "O": 1.520,
-        "F": 1.470,
-        "NA": 2.270,
-        "MG": 1.730,
-        "P": 1.800,
-        "S": 1.800,
-        "CL": 1.750,
-        "K": 2.750,
-        "CA": 2.310,
-        "NI": 1.630,
-        "CU": 1.400,
-        "ZN": 1.390,
-        "SE": 1.900,
-        "BR": 1.850,
-        "CD": 1.580,
-        "I": 1.980,
-        "HG": 1.550,
-    }
+    "H": 1.200,
+    "HE": 1.400,
+    "C": 1.700,
+    "N": 1.550,
+    "O": 1.520,
+    "F": 1.470,
+    "NA": 2.270,
+    "MG": 1.730,
+    "P": 1.800,
+    "S": 1.800,
+    "CL": 1.750,
+    "K": 2.750,
+    "CA": 2.310,
+    "NI": 1.630,
+    "CU": 1.400,
+    "ZN": 1.390,
+    "SE": 1.900,
+    "BR": 1.850,
+    "CD": 1.580,
+    "I": 1.980,
+    "HG": 1.550,
+}
+
+RESIDUE_SASA = {
+    "ALA": 129.0,
+    "ARG": 274.0,
+    "ASN": 195.0,
+    "ASP": 193.0,
+    "CYS": 167.0,
+    "GLU": 223.0,
+    "GLN": 225.0,
+    "GLY": 104.0,
+    "HIS": 224.0,
+    "ILE": 197.0,
+    "LEU": 201.0,
+    "LYS": 236.0,
+    "MET": 224.0,
+    "PHE": 240.0,
+    "PRO": 159.0,
+    "SER": 155.0,
+    "THR": 172.0,
+    "TRP": 285.0,
+    "TYR": 263.0,
+    "VAL": 174.0
+}
 
 
 class Atom:
@@ -306,26 +329,23 @@ class SASACalculator:
         
         self.protein.total_absolute_sasa = total_absolute_sasa
     
-    def print_sasa_report(self, output_type="total"):
+    def print_sasa_report(self, output_type="copmlete"):
         """
         Prints a report of the SASA calculations.
 
         Args:
-        output_type (str): Specifies the type of SASA report ('total', 'atomic', 'residue').
+        output_type (str): Specifies the type of SASA report ('total', 'atomic', 'residue', 'complete').
         """
-        possible_arguments = ["total", "atomic", "residue"]
+        possible_arguments = ["total", "atomic", "residue", "complete"]
         if output_type not in possible_arguments:
             raise ValueError(f"Invalid output type. Possible types are {possible_arguments}")
         
         if output_type == "atomic":
-            print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8} {:>8}".format("ATOM", "NAME", "TYPE", "RES", "NUM", "CHAIN", "ABS_SASA", "REL_SASA"))
-            
             for atom in self.protein.list_atoms:
-                print("{:>4} {:>4} {:>4} {:>4} {:>5} {:>5} {:>8.2f} {:>8.1f}".format(atom.serial, atom.name, atom.type, atom.aa_name, atom.aa_number, atom.chain_id, atom.abs_sasa, atom.rel_sasa))
+                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("ATOM", atom.serial, atom.name, atom.aa_name, atom.chain_id, atom.aa_number, atom.abs_sasa, atom.rel_sasa))
         
         if output_type == "total":
-            print("{:>5} {:>3} {:>4} {:>4} {:>5} {:>5} {:>8.2f}".format("TOTAL", "", "", "", "", "", self.protein.total_absolute_sasa))
-        
+            print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8}".format("TOTAL", "", "", "", "", "", self.protein.total_absolute_sasa, ""))        
         if output_type == "residue":
             chain_sasa = {}
             amino_acid_sasa = {}
@@ -346,13 +366,41 @@ class SASACalculator:
                 else:
                     amino_acid_sasa[aa_key] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
             
-            print("{:>4} {:>4} {:>5} {:>8} {:>8}".format("RES", "NUM", "CHAIN", "ABS", "REL"))
             for aa_key, sasa_value in amino_acid_sasa.items():
-                print("{:>4} {:>4} {:>5} {:>8.2f} {:>8.1f}".format(aa_key[0], aa_key[1], aa_key[2], sasa_value["abs"], sasa_value["rel"]))
-            
-            print("\nAbsolute sums over single chains surface areas")
+                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("RES", "", "", aa_key[0], aa_key[2], aa_key[1], sasa_value["abs"], sasa_value["rel"]))
+                
             for chain, sasa_value in chain_sasa.items():
-                print("{:>5} {:>4} {:>8.2f}".format("CHAIN", chain, sasa_value["abs"]))
+                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("CHAIN", "", "", "", chain, "", sasa_value["abs"], sasa_value["rel"]))
 
-            print("\nAbsolute sums over all chains")
-            print("{:>5} {:>4} {:>8.2f}".format("TOTAL", "", self.protein.total_absolute_sasa))
+            print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("TOTAL", "", "", "", "", "", self.protein.total_absolute_sasa, ""))
+            
+        if output_type == "complete":
+            for atom in self.protein.list_atoms:
+                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("ATOM", atom.serial, atom.name, atom.aa_name, atom.chain_id, atom.aa_number, atom.abs_sasa, atom.rel_sasa))
+                
+            chain_sasa = {}
+            amino_acid_sasa = {}
+            
+            for atom in self.protein.list_atoms:
+                chain_id = atom.chain_id
+                aa_key = (atom.aa_name, atom.aa_number, atom.chain_id)
+                
+                if chain_id in chain_sasa:
+                    chain_sasa[chain_id]["abs"] += atom.abs_sasa
+                    chain_sasa[chain_id]["rel"] += atom.rel_sasa
+                else:
+                    chain_sasa[chain_id] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
+            
+                if aa_key in amino_acid_sasa:
+                    amino_acid_sasa[aa_key]["abs"] += atom.abs_sasa
+                    amino_acid_sasa[aa_key]["rel"] += atom.rel_sasa
+                else:
+                    amino_acid_sasa[aa_key] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
+            
+            for aa_key, sasa_value in amino_acid_sasa.items():
+                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("RES", "", "", aa_key[0], aa_key[2], aa_key[1], sasa_value["abs"], sasa_value["rel"]))
+                
+            for chain, sasa_value in chain_sasa.items():
+                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("CHAIN", "", "", "", chain, "", sasa_value["abs"], sasa_value["rel"]))
+
+            print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8}".format("TOTAL", "", "", "", "", "", self.protein.total_absolute_sasa, ""))

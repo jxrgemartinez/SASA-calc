@@ -39,10 +39,10 @@ def parse_arguments():
     parser.add_argument(
         '--output', 
         type=str, 
-        default='residue',
-        choices=['residue', 'atom', 'chain'],
-        help='Type of output for SASA report. Options are "residue", "atom", or "chain". '
-             'Default is "residue".'
+        default='complete',
+        choices=['residue', 'atomic', 'total', 'complete'],
+        help='Type of output for SASA report. Options are "residue", "atomic", "total" or "copmlete. '
+             'Default is "complete".'
     )
     
     return parser.parse_args()
