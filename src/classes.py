@@ -173,17 +173,15 @@ class Sphere:
     
     def _generate_unit_sphere_points(self):
         points = []
-        inc = np.pi * (3 - np.sqrt(5))
-        offset = 2 / self.n_points
-
-        for i in range(self.n_points):
-            y = i * offset - 1 + (offset / 2)  
-            r = np.sqrt(1 - y * y)  
-            phi = i * inc  
-            x = np.cos(phi) * r  
-            z = np.sin(phi) * r  
-    
-            points.append([x, y, z])  
+        for k in range(self.n_points):
+            theta = np.arccos(1 - 2 * (k + 0.5) / self.n_points)  # polar angle
+            phi = np.pi * (1 + np.sqrt(5)) * k  # azimuthal angle (golden angle approximation)
+            
+            x = np.sin(theta) * np.cos(phi)  # x coordinate
+            y = np.sin(theta) * np.sin(phi)  # y coordinate
+            z = np.cos(theta)  # z coordinate
+            
+            points.append([x, y, z])
         
         return np.array(points)
 
@@ -263,6 +261,8 @@ class SASACalculator:
         
         if output_type not in possible_arguments:
             raise ValueError(f"Invalid output type. Possible types are {possible_arguments}")
+        
+        print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8} {:>8}".format("TYPE", "ATM_N", "ATM", "RES", "CHN", "RES_N", "ABS_SASA", "REL_SASA"))
         
         if output_type == "atomic":
             for atom in self.protein.list_atoms:

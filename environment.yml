@@ -1,0 +1,10 @@
+name: sasa_env
+channels:
+    - nodefaults
+    - conda-forge
+    - bioconda
+
+dependencies:
+  - python=3.9
+  - biopython
+  - numpy
