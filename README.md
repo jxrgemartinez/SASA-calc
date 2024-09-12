@@ -89,5 +89,5 @@ This output summarizes the total SASA for the entire protein
 TOTAL                           17250.86         
 ```
 
-#### Complete
+#### Complete
 The complete output combines all the above details into a fully detailed report

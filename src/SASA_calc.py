@@ -29,7 +29,7 @@ def parse_arguments():
     )
     
     parser.add_argument(
-        '--sonde', 
+        '--probe', 
         type=float, 
         default=1.4, 
         help='Radius of the probe sphere used in SASA calculation. '
@@ -55,7 +55,7 @@ def main():
     
     try:
         protein = classes.Protein(args.pdb_file, model_index=args.model)
-        analysis = classes.SASACalculator(protein, n_points=args.points, sonde_radius=args.sonde)
+        analysis = classes.SASACalculator(protein, n_points=args.points, probe_radius=args.probe)
         analysis.run()
         analysis.print_sasa_report(output_type=args.output)
     except FileNotFoundError as e:

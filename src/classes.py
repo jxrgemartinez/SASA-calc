@@ -154,7 +154,7 @@ class Protein:
         """
         Determines close atoms for a given atom within a specified cutoff distance.
         The cutoff was determined based on the radius of the largest Van der Waals radius
-        (K) and the sonde diameter (2*1.4) = 2.8 A.
+        (K) and the probe diameter (2*1.4) = 2.8 A.
         """
         for j in range(len(self.list_atoms)):
             if j != atom_index and self.distance_matrix[atom_index][j] < cutoff:
@@ -185,8 +185,8 @@ class Sphere:
         
         return np.array(points)
 
-    def rescale_sphere(self, center_atom, sonde_radius):
-        radius = center_atom.rad_vdw + sonde_radius
+    def rescale_sphere(self, center_atom, probe_radius):
+        radius = center_atom.rad_vdw + probe_radius
         adjusted_points = (self.unit_sphere_points * radius) + center_atom.coord
         
         return adjusted_points
@@ -198,18 +198,18 @@ class SASACalculator:
     approximation method. This class handles the computation across all atoms in the protein
     and provides detailed SASA reports.
     """
-    def __init__(self, protein, n_points=100, sonde_radius=1.4):
+    def __init__(self, protein, n_points=100, probe_radius=1.4):
         """
         Initializes a SASA calculator for a given protein.
 
         Args:
         protein (Protein): The protein for which SASA will be calculated.
         n_points (int): Number of points on the sphere used in the calculation.
-        sonde_radius (float): Radius of the probe sphere used in SASA calculation.
+        probe_radius (float): Radius of the probe sphere used in SASA calculation.
         """
         self.protein = protein
         self.sphere = Sphere(n_points)
-        self.sonde_radius = sonde_radius
+        self.probe_radius = probe_radius
         self.protein.total_absolute_sasa = 0
         
     def compute_atom_sasa(self, atom):
@@ -225,14 +225,14 @@ class SASACalculator:
         atom_index = self.protein.atom_index_map[atom.serial]
         self.protein.determine_neighbors(atom_index)
 
-        rescaled_sphere_points = self.sphere.rescale_sphere(atom, self.sonde_radius)
+        rescaled_sphere_points = self.sphere.rescale_sphere(atom, self.probe_radius)
         accessible_points = 0
 
         for point in rescaled_sphere_points:
-            if all(np.linalg.norm(point - neighbor.coord) >= (neighbor.rad_vdw + self.sonde_radius) for neighbor in atom.neighbors):
+            if all(np.linalg.norm(point - neighbor.coord) >= (neighbor.rad_vdw + self.probe_radius) for neighbor in atom.neighbors):
                 accessible_points += 1
 
-        sphere_area = 4 * np.pi * (atom.rad_vdw + self.sonde_radius) ** 2
+        sphere_area = 4 * np.pi * (atom.rad_vdw + self.probe_radius) ** 2
         accessible_area = (accessible_points / len(rescaled_sphere_points)) * sphere_area
         return accessible_area
 
