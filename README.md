@@ -1,7 +1,9 @@
 # Protein Solvent Accessible Surface Area (SASA) Calculation Tool
 
 ## Overview
-This Python application, developed as part of academic research at [University/Institute Name], calculates and reports the Solvent Accessible Surface Area (SASA) of proteins from PDB files. Designed to support both educational and research activities in computational biology, this tool computes SASA using precise geometric methods to determine the exposure of atoms within protein structures based on their atomic coordinates.
+This Python application, developed as part of academic cursus of the MSc in Bioinformatics, calculates and reports the Solvent Accessible Surface Area (SASA) of proteins from PDB files. Designed to support both educational and research activities in computational biology, this tool computes SASA using precise geometric methods to determine the exposure of atoms within protein structures based on their atomic coordinates.
+
+**This application is based on the framework utilised by Shrake and Rupley (1971). It uses a rolling probe process to capture which part of the atoms surface is accessible to solvant**
 
 ### Objective
 The goal of this project is to offer a robust and efficient tool for the bioinformatics community to facilitate the analysis of protein solvation properties, crucial for understanding molecular interactions and biological functions. This tool stands out by providing detailed features for customizing the analysis, comparing results with established methods like NACCESS, and supporting various output formats for diverse research needs.
@@ -13,11 +15,9 @@ The goal of this project is to offer a robust and efficient tool for the bioinfo
 * Adjustable resolution for sphere point density and probe size.
 
 ## Setup
-
 To install the algorithm and its dependencies, you need to perform the following steps:
 
 ### Clone the repository
-
 ```bash
 git clone https://github.com/jxrgemartinez/SASA-calc.git
 
@@ -27,13 +27,11 @@ cd SASA-calc
 ### Install [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
 ### Create a Conda environment
-
 ```bash
 conda env create -f environment.yml
 ```
 
 ### Activate the Conda environment
-
 ```bash
 conda activate sasa_env
 ```
@@ -91,3 +89,8 @@ TOTAL                           17250.86
 
 #### Complete
 The complete output combines all the above details into a fully detailed report
+
+## References
+1.	Shrake, A., & Rupley, J. A. (1973). Environment and exposure to solvent of protein atoms: Lysozyme and insulin. Journal of Molecular Biology, 79(2), 351-371. https://doi.org/10.1016/0022-2836(73)90011-9
+2.	Saff, E. B., & Kuijlaars, A. B. J. (1997). Distributing many points on a sphere. The Mathematical Intelligencer, 19(1), 5-11. https://doi.org/10.1007/BF03024331
+3.	Tien, M. Z., Meyer, A. G., Sydykova, D. K., Spielman, S. J., & Wilke, C. O. (2013). Maximum allowed solvent accessibilities of residues in proteins. PLoS ONE, 8(11), e80635. https://doi.org/10.1371/journal.pone.0080635

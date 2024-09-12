@@ -1,7 +1,7 @@
 import os
-from Bio.PDB import PDBParser
-import numpy as np
 from multiprocessing import Pool
+import numpy as np
+from Bio.PDB import PDBParser
 
 ATOM_VdW = {
     "H": 1.200,
@@ -27,23 +27,47 @@ ATOM_VdW = {
     "HG": 1.550,
 }
 
+MAX_ASA ={
+    'ALA': 121.0,
+    'ARG': 265.0,
+    'ASN': 187.0,
+    'ASP': 187.0,
+    'CYS': 148.0,
+    'GLU': 214.0,
+    'GLN': 214.0,
+    'GLY': 97.0,
+    'HIS': 216.0,
+    'ILE': 195.0,
+    'LEU': 191.0,
+    'LYS': 230.0,
+    'MET': 203.0,
+    'PHE': 228.0,
+    'PRO': 154.0,
+    'SER': 143.0,
+    'THR': 163.0,
+    'TRP': 264.0,
+    'TYR': 255.0,
+    'VAL': 165.0
+}
 
 class Atom:
     """
-    Represents an atom within the molecular structure, containing
-    properties relevant to both the atom itself and its context
-    within a larger molecule
+    Represents an atom within a molecular structure, encapsulating properties
+    relevant to the atom itself and its context within a molecule.
     """
+    
     def __init__(self, serial, name, atom_type, aa_name, aa_number, chain_id, coord):
         """
-        Arguments:
+        Initialize a new Atom instance with detailed properties and default values for derived attributes.
+
+        Parameters:
         - serial (int): Atom number.
         - name (str): Atom name.
         - atom_type (str): Element type.
         - aa_name (str): Amino acid name.
         - aa_number (int): Amino acid sequence number.
         - chain_id (str): Chain identifier.
-        - coord (list): 3D coordinates of the atom as a list [x, y, z].
+        - coord (list or tuple): 3D coordinates of the atom as a list [x, y, z].
         """
         self.serial = serial 
         self.name = name
@@ -60,13 +84,23 @@ class Atom:
     def add_neighbor(self, other):
         """
         Adds another atom to the list of this atom's neighbors.
+
+        Parameters:
+        - other (Atom): The atom to be added as a neighbor.
         """
         self.neighbors.append(other)
  
  
 def distance_pair(coords):
     """
-    Calculates the distance between two points
+    Calculates the Euclidean distance between two 3D points.
+
+    Parameters:
+    - coords (tuple of np.ndarray): A tuple containing two numpy arrays representing the coordinates
+      of the two points (coord1, coord2).
+
+    Returns:
+    - float: The Euclidean distance between the two points.
     """
     coord1, coord2 = coords
     return np.linalg.norm(coord1 - coord2)
@@ -74,10 +108,19 @@ def distance_pair(coords):
    
 class Protein:
     """
-    Represents the protein structure: it parses a PDB file,
-    and computes the distances between all the protein atoms.
+    Represents a protein structure by parsing a PDB file and computing distances
+    between all protein atoms.
     """
+    
     def __init__(self, filepath, model_index=0):
+        """
+        Initializes the Protein object by building the molecular structure from a PDB file
+        and computing the distance matrix.
+
+        Parameters:
+        - filepath (str): Path to the PDB file.
+        - model_index (int): Index of the model to parse from the PDB file.
+        """
         if not os.path.exists(filepath):
             raise FileNotFoundError(f"File does not exist: {filepath}")
         
@@ -88,17 +131,23 @@ class Protein:
         self.distance_matrix = self.compute_distance_matrix()
 
     def add_atom(self, atom):
+        """
+        Adds an atom to the protein structure.
+
+        Parameters:
+        - atom (Atom): The atom to be added.
+        """
         if isinstance(atom, Atom):
             self.list_atoms.append(atom)
             self.atom_index_map[atom.serial] = len(self.list_atoms) - 1
     
     def _build_mlc_from_pdb(self, filepath, model_index):
         """
-        Parse the PDB file and store the atoms coordinates.
+        Private method to parse the PDB file and store the atom coordinates.
 
-        Arguments:
-        filepath (str): Path to the PDB file.
-        model_index (int): Index of the model to parse.
+        Parameters:
+        - filepath (str): Path to the PDB file.
+        - model_index (int): Index of the model to parse.
         """
         parser = PDBParser(QUIET=True)
         structure_id = filepath.split('/')[-1].split('.')[0]
@@ -131,7 +180,10 @@ class Protein:
    
     def compute_distance_matrix(self):
         """
-        Computes the distance matrix for all atoms in the protein.
+        Computes the distance matrix for all atoms in the protein using parallel processing.
+
+        Returns:
+        - np.ndarray: A symmetric matrix of distances between all atoms.
         """
         num_atoms = len(self.list_atoms)
         tasks = [(self.list_atoms[i].coord, self.list_atoms[j].coord) for i in range(num_atoms) for j in range(i, num_atoms)]
@@ -152,9 +204,11 @@ class Protein:
 
     def determine_neighbors(self, atom_index, cutoff=15):
         """
-        Determines close atoms for a given atom within a specified cutoff distance.
-        The cutoff was determined based on the radius of the largest Van der Waals radius
-        (K) and the probe diameter (2*1.4) = 2.8 A.
+        Determines close neighbors for a specified atom within a given cutoff distance.
+
+        Parameters:
+        - atom_index (int): Index of the atom to find neighbors for.
+        - cutoff (float): Distance cutoff for determining neighbors.
         """
         for j in range(len(self.list_atoms)):
             if j != atom_index and self.distance_matrix[atom_index][j] < cutoff:
@@ -164,14 +218,27 @@ class Protein:
 class Sphere:
     """
     Represents a geometric sphere used for calculating solvent accessible surface area (SASA).
-    This class generates a unit sphere with the Fibonacci lattice methodn and can relocate it
-    and rescale it based on the coordinates and van der Waals radius of a center atom.
+    This class generates a unit sphere with the Fibonacci lattice method and can relocate and
+    rescale it based on the coordinates and van der Waals radius of a center atom.
     """
+    
     def __init__(self, n_points=100):
+        """
+        Initialize the Sphere with a specified number of points.
+
+        Parameters:
+        - n_points (int): The number of points to generate on the unit sphere.
+        """
         self.n_points = n_points
         self.unit_sphere_points = self._generate_unit_sphere_points()
     
     def _generate_unit_sphere_points(self):
+        """
+        Generates points on a unit sphere using the Fibonacci lattice method.
+
+        Returns:
+        - np.ndarray: Coordinates of points on the unit sphere.
+        """
         points = []
         for k in range(self.n_points):
             theta = np.arccos(1 - 2 * (k + 0.5) / self.n_points)  # polar angle
@@ -186,6 +253,16 @@ class Sphere:
         return np.array(points)
 
     def rescale_sphere(self, center_atom, probe_radius):
+        """
+        Rescales and relocates the sphere based on the center atom's coordinates and radius.
+
+        Parameters:
+        - center_atom (Atom): The atom at the center of the sphere.
+        - probe_radius (float): The radius of the probe used in SASA calculation.
+
+        Returns:
+        - np.ndarray: The coordinates of the rescaled sphere points.
+        """
         radius = center_atom.rad_vdw + probe_radius
         adjusted_points = (self.unit_sphere_points * radius) + center_atom.coord
         
@@ -198,29 +275,31 @@ class SASACalculator:
     approximation method. This class handles the computation across all atoms in the protein
     and provides detailed SASA reports.
     """
+    
     def __init__(self, protein, n_points=100, probe_radius=1.4):
         """
         Initializes a SASA calculator for a given protein.
 
-        Args:
-        protein (Protein): The protein for which SASA will be calculated.
-        n_points (int): Number of points on the sphere used in the calculation.
-        probe_radius (float): Radius of the probe sphere used in SASA calculation.
+        Parameters:
+        - protein (Protein): The protein for which SASA will be calculated.
+        - n_points (int): Number of points on the sphere used in the calculation.
+        - probe_radius (float): Radius of the probe sphere used in SASA calculation.
         """
         self.protein = protein
         self.sphere = Sphere(n_points)
         self.probe_radius = probe_radius
         self.protein.total_absolute_sasa = 0
+        self.protein.total_rel_sasa = 0
         
     def compute_atom_sasa(self, atom):
         """
         Computes the SASA for a single atom.
 
-        Args:
-        atom (Atom): The atom for which SASA is being calculated.
+        Parameters:
+        - atom (Atom): The atom for which SASA is being calculated.
 
         Returns:
-        float: The solvent accessible surface area of the atom.
+        - float: The solvent accessible surface area of the atom.
         """
         atom_index = self.protein.atom_index_map[atom.serial]
         self.protein.determine_neighbors(atom_index)
@@ -246,16 +325,15 @@ class SASACalculator:
         total_absolute_sasa = sum(results)
         for atom, abs_sasa in zip(self.protein.list_atoms, results):
             atom.abs_sasa = abs_sasa
-            atom.rel_sasa = (abs_sasa / total_absolute_sasa * 100) if total_absolute_sasa > 0 else 0
         
         self.protein.total_absolute_sasa = total_absolute_sasa
     
-    def print_sasa_report(self, output_type="copmlete"):
+    def print_sasa_report(self, output_type="complete"):
         """
         Prints a report of the SASA calculations.
 
-        Args:
-        output_type (str): Specifies the type of SASA report ('total', 'atomic', 'residue', 'complete').
+        Parameters:
+        - output_type (str): Specifies the type of SASA report ('total', 'atomic', 'residue', 'complete').
         """
         possible_arguments = ["total", "atomic", "residue", "complete"]
         
@@ -264,68 +342,42 @@ class SASACalculator:
         
         print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8} {:>8}".format("TYPE", "ATM_N", "ATM", "RES", "CHN", "RES_N", "ABS_SASA", "REL_SASA"))
         
+        chain_sasa = {}
+        amino_acid_sasa = {}
+        self.protein.total_rel_sasa = 0
+        
+        for atom in self.protein.list_atoms:
+            chain_id = atom.chain_id
+            aa_key = (atom.aa_name, atom.aa_number, chain_id)
+            
+            if aa_key in amino_acid_sasa:
+                amino_acid_sasa[aa_key]["abs"] += atom.abs_sasa
+            else:
+                amino_acid_sasa[aa_key] = {"abs": atom.abs_sasa}
+        
+        for aa_key, sasa_value in amino_acid_sasa.items():
+            max_sasa = MAX_ASA.get(aa_key[0], 0)
+            rel_sasa = (sasa_value["abs"] / max_sasa) * 100 if max_sasa > 0 else 0
+            sasa_value["rel"] = rel_sasa 
+            
+            chain_id = aa_key[2]
+            if chain_id in chain_sasa:
+                chain_sasa[chain_id]["abs"] += sasa_value["abs"]
+                chain_sasa[chain_id]["rel"] += rel_sasa
+            else:
+                chain_sasa[chain_id] = {"abs": sasa_value["abs"], "rel": rel_sasa}
+            
+            self.protein.total_rel_sasa += rel_sasa
+            
         if output_type == "atomic":
             for atom in self.protein.list_atoms:
-                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("ATOM", atom.serial, atom.name, atom.aa_name, atom.chain_id, atom.aa_number, atom.abs_sasa, atom.rel_sasa))
+                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8}".format("ATOM", atom.serial, atom.name, atom.aa_name, atom.chain_id, atom.aa_number, atom.abs_sasa, ""))
+
+        if output_type in ["residue", "complete"]:
+            for aa_key, sasa_value in amino_acid_sasa.items():
+                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("RES", "", "", aa_key[0], aa_key[2], aa_key[1], sasa_value["abs"], sasa_value["rel"]))
         
-        if output_type == "total":
-            print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8}".format("TOTAL", "", "", "", "", "", self.protein.total_absolute_sasa, ""))  
-                  
-        if output_type == "residue":
-            chain_sasa = {}
-            amino_acid_sasa = {}
-            
-            for atom in self.protein.list_atoms:
-                chain_id = atom.chain_id
-                aa_key = (atom.aa_name, atom.aa_number, atom.chain_id)
-                
-                if chain_id in chain_sasa:
-                    chain_sasa[chain_id]["abs"] += atom.abs_sasa
-                    chain_sasa[chain_id]["rel"] += atom.rel_sasa
-                else:
-                    chain_sasa[chain_id] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
-            
-                if aa_key in amino_acid_sasa:
-                    amino_acid_sasa[aa_key]["abs"] += atom.abs_sasa
-                    amino_acid_sasa[aa_key]["rel"] += atom.rel_sasa
-                else:
-                    amino_acid_sasa[aa_key] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
-            
-            for aa_key, sasa_value in amino_acid_sasa.items():
-                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("RES", "", "", aa_key[0], aa_key[2], aa_key[1], sasa_value["abs"], sasa_value["rel"]))
-                
-            for chain, sasa_value in chain_sasa.items():
-                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("CHAIN", "", "", "", chain, "", sasa_value["abs"], sasa_value["rel"]))
-
-            print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("TOTAL", "", "", "", "", "", self.protein.total_absolute_sasa, ""))
-            
-        if output_type == "complete":
-            for atom in self.protein.list_atoms:
-                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("ATOM", atom.serial, atom.name, atom.aa_name, atom.chain_id, atom.aa_number, atom.abs_sasa, atom.rel_sasa))
-                
-            chain_sasa = {}
-            amino_acid_sasa = {}
-            
-            for atom in self.protein.list_atoms:
-                chain_id = atom.chain_id
-                aa_key = (atom.aa_name, atom.aa_number, atom.chain_id)
-                
-                if chain_id in chain_sasa:
-                    chain_sasa[chain_id]["abs"] += atom.abs_sasa
-                    chain_sasa[chain_id]["rel"] += atom.rel_sasa
-                else:
-                    chain_sasa[chain_id] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
-            
-                if aa_key in amino_acid_sasa:
-                    amino_acid_sasa[aa_key]["abs"] += atom.abs_sasa
-                    amino_acid_sasa[aa_key]["rel"] += atom.rel_sasa
-                else:
-                    amino_acid_sasa[aa_key] = {"abs": atom.abs_sasa, "rel": atom.rel_sasa}
-            
-            for aa_key, sasa_value in amino_acid_sasa.items():
-                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("RES", "", "", aa_key[0], aa_key[2], aa_key[1], sasa_value["abs"], sasa_value["rel"]))
-                
-            for chain, sasa_value in chain_sasa.items():
-                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("CHAIN", "", "", "", chain, "", sasa_value["abs"], sasa_value["rel"]))
-
-            print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8}".format("TOTAL", "", "", "", "", "", self.protein.total_absolute_sasa, ""))
+        if output_type in ["residue", "complete", "total"]:
+            for chain, sasa in chain_sasa.items():
+                print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("CHAIN", "", "", "", chain, "", sasa["abs"], sasa["rel"]))
+            print("{:<5} {:>5} {:>4} {:>4} {:>4} {:>4} {:>8.2f} {:>8.2f}".format("TOTAL", "", "", "", "", "", self.protein.total_absolute_sasa, self.protein.total_rel_sasa))

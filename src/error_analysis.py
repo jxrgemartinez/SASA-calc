@@ -3,49 +3,75 @@ import re
 import numpy as np
 import csv
 
-def extract_number_from_rsa(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            for line in file:
-                if "TOTAL" in line:
-                    numbers = re.findall(r'\d+\.\d+', line)
-                    if numbers:
-                        return float(numbers[0])
-    except Exception as e:
-        print(f"Error reading {file_path}: {e}")
-    return None
+def extract_number_from_file(file_path, pattern="TOTAL"):
+    """
+    Extracts the first floating-point number from the specified line of a file.
 
-def extract_number_from_txt(file_path):
+    Parameters:
+    - file_path (str): Path to the file.
+    - pattern (str): Pattern to identify the relevant line.
+
+    Returns:
+    - float: The first floating-point number on the identified line, or None if not found.
+    """
     try:
         with open(file_path, 'r') as file:
             for line in file:
-                if "TOTAL" in line:
+                if pattern in line:
                     numbers = re.findall(r'\d+\.\d+', line)
-                    if numbers:
-                        return float(numbers[0])
+                    return float(numbers[0]) if numbers else None
     except Exception as e:
         print(f"Error reading {file_path}: {e}")
     return None
 
 def calculate_accuracy(rsa_value, txt_value):
+    """
+    Calculates the percentage accuracy between two values.
+
+    Parameters:
+    - rsa_value (float): Reference value.
+    - txt_value (float): Test value.
+
+    Returns:
+    - float: Percentage accuracy if both values are not None, otherwise None.
+    """
     if rsa_value is None or txt_value is None:
         return None
-    return ((txt_value - rsa_value) / rsa_value) * 100
+    return (abs(txt_value - rsa_value) / rsa_value) * 100
 
 def save_results_to_csv(results, filename='res/errors.csv'):
+    """
+    Saves the results to a CSV file.
+
+    Parameters:
+    - results (list of tuples): List containing results data.
+    - filename (str): Path to the output CSV file.
+    """
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['PDB ID', 'NACCESS', 'CUSTOM', 'ERROR (%)'])
-        for pdb_id, rsa_value, txt_value, error in results:
-            writer.writerow([pdb_id, rsa_value, txt_value, error])
+        writer.writerows(results)
 
 def print_results_table(results):
-    print(f"{'PDB ID':<10} {'NACCESS':<10} {'CUSTOM':<10} {'ERROR (%)':<10}")
-    print("=" * 50)
+    """
+    Prints a formatted table of results.
+
+    Parameters:
+    - results (list of tuples): List containing results data.
+    """
+    header = f"{'PDB ID':<10} {'NACCESS':<10} {'CUSTOM':<10} {'ERROR (%)':<10}"
+    print(header)
+    print("=" * len(header))
     for pdb_id, rsa_value, txt_value, error in results:
         print(f"{pdb_id:<10} {rsa_value:<10.2f} {txt_value:<10.2f} {error:<10.2f}")
 
 def main(directory):
+    """
+    Main function to analyze results from a directory.
+
+    Parameters:
+    - directory (str): Directory containing the files to analyze.
+    """
     rsa_files = {f.split('.')[0]: os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.rsa')}
     txt_files = {f.split('.')[0]: os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.txt')}
     
@@ -54,8 +80,8 @@ def main(directory):
 
     for pdb_id in rsa_files:
         if pdb_id in txt_files:
-            rsa_value = extract_number_from_rsa(rsa_files[pdb_id])
-            txt_value = extract_number_from_txt(txt_files[pdb_id])
+            rsa_value = extract_number_from_file(rsa_files[pdb_id])
+            txt_value = extract_number_from_file(txt_files[pdb_id])
             if rsa_value is not None and txt_value is not None:
                 accuracy = calculate_accuracy(rsa_value, txt_value)
                 accuracies.append(accuracy)
@@ -72,7 +98,6 @@ def main(directory):
         print(f"\nAverage error: {average_accuracy:.2f}%")
         print(f"Max error: {max_error:.2f}%, Min error: {min_error:.2f}%, Std Dev: {std_dev:.2f}%")
         
-        # Save results to CSV
         save_results_to_csv(results)
 
     else:

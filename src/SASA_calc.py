@@ -2,6 +2,12 @@ import argparse
 import classes
 
 def parse_arguments():
+    """
+    Parses command-line arguments for SASA calculation.
+
+    Returns:
+    argparse.Namespace: Parsed command line arguments.
+    """
     description = ('Calculate and report the Solvent Accessible Surface Area '
                    '(SASA) for a given protein structure file.')
     parser = argparse.ArgumentParser(description=description)

@@ -1,1042 +1,124 @@
-TYPE  ATM_N  ATM  RES  CHN RES_N ABS_SASA REL_SASA
-ATOM      1    N  ALA    A   13    13.12     0.19
-ATOM      2   CA  ALA    A   13    15.70     0.23
-ATOM      3    C  ALA    A   13     0.00     0.00
-ATOM      4    O  ALA    A   13     0.00     0.00
-ATOM      5   CB  ALA    A   13    10.87     0.16
-ATOM      6    N  GLU    A   14     7.66     0.11
-ATOM      7   CA  GLU    A   14     0.00     0.00
-ATOM      8    C  GLU    A   14     0.00     0.00
-ATOM      9    O  GLU    A   14     0.00     0.00
-ATOM     10   CB  GLU    A   14     3.62     0.05
-ATOM     11   CG  GLU    A   14     9.66     0.14
-ATOM     12   CD  GLU    A   14     7.25     0.11
-ATOM     13  OE1  GLU    A   14    39.64     0.58
-ATOM     14  OE2  GLU    A   14    39.64     0.58
-ATOM     15    N  ALA    A   15     1.09     0.02
-ATOM     16   CA  ALA    A   15     7.25     0.11
-ATOM     17    C  ALA    A   15     1.21     0.02
-ATOM     18    O  ALA    A   15    12.86     0.19
-ATOM     19   CB  ALA    A   15    55.55     0.81
-ATOM     20    N  GLY    A   16     3.28     0.05
-ATOM     21   CA  GLY    A   16    12.08     0.18
-ATOM     22    C  GLY    A   16     0.00     0.00
-ATOM     23    O  GLY    A   16     0.00     0.00
-ATOM     24    N  ILE    A   17     0.00     0.00
-ATOM     25   CA  ILE    A   17     0.00     0.00
-ATOM     26    C  ILE    A   17     0.00     0.00
-ATOM     27    O  ILE    A   17     0.00     0.00
-ATOM     28   CB  ILE    A   17     0.00     0.00
-ATOM     29  CG1  ILE    A   17     0.00     0.00
-ATOM     30  CG2  ILE    A   17     1.21     0.02
-ATOM     31  CD1  ILE    A   17     0.00     0.00
-ATOM     32    N  THR    A   18     0.00     0.00
-ATOM     33   CA  THR    A   18     0.00     0.00
-ATOM     34    C  THR    A   18     0.00     0.00
-ATOM     35    O  THR    A   18     8.57     0.12
-ATOM     36   CB  THR    A   18     7.25     0.11
-ATOM     37  OG1  THR    A   18     4.29     0.06
-ATOM     38  CG2  THR    A   18    32.61     0.47
-ATOM     39    N  GLY    A   19     0.00     0.00
-ATOM     40   CA  GLY    A   19    16.91     0.25
-ATOM     41    C  GLY    A   19     1.21     0.02
-ATOM     42    O  GLY    A   19     0.00     0.00
-ATOM     43    N  THR    A   20     5.47     0.08
-ATOM     44   CA  THR    A   20     0.00     0.00
-ATOM     45    C  THR    A   20     0.00     0.00
-ATOM     46    O  THR    A   20     4.29     0.06
-ATOM     47   CB  THR    A   20    10.87     0.16
-ATOM     48  OG1  THR    A   20    25.72     0.37
-ATOM     49  CG2  THR    A   20     9.66     0.14
-ATOM     50    N  TRP    A   21     0.00     0.00
-ATOM     51   CA  TRP    A   21     0.00     0.00
-ATOM     52    C  TRP    A   21     0.00     0.00
-ATOM     53    O  TRP    A   21     0.00     0.00
-ATOM     54   CB  TRP    A   21     0.00     0.00
-ATOM     55   CG  TRP    A   21     0.00     0.00
-ATOM     56  CD1  TRP    A   21     0.00     0.00
-ATOM     57  CD2  TRP    A   21     0.00     0.00
-ATOM     58  NE1  TRP    A   21     0.00     0.00
-ATOM     59  CE2  TRP    A   21     0.00     0.00
-ATOM     60  CE3  TRP    A   21     0.00     0.00
-ATOM     61  CZ2  TRP    A   21     0.00     0.00
-ATOM     62  CZ3  TRP    A   21     0.00     0.00
-ATOM     63  CH2  TRP    A   21     0.00     0.00
-ATOM     64    N  TYR    A   22     0.00     0.00
-ATOM     65   CA  TYR    A   22     0.00     0.00
-ATOM     66    C  TYR    A   22     0.00     0.00
-ATOM     67    O  TYR    A   22     3.21     0.05
-ATOM     68   CB  TYR    A   22     4.83     0.07
-ATOM     69   CG  TYR    A   22     0.00     0.00
-ATOM     70  CD1  TYR    A   22     7.25     0.11
-ATOM     71  CD2  TYR    A   22     0.00     0.00
-ATOM     72  CE1  TYR    A   22    14.49     0.21
-ATOM     73  CE2  TYR    A   22     3.62     0.05
-ATOM     74   CZ  TYR    A   22     3.62     0.05
-ATOM     75   OH  TYR    A   22    39.64     0.58
-ATOM     76    N  ASN    A   23     0.00     0.00
-ATOM     77   CA  ASN    A   23     0.00     0.00
-ATOM     78    C  ASN    A   23     1.21     0.02
-ATOM     79    O  ASN    A   23    11.79     0.17
-ATOM     80   CB  ASN    A   23     0.00     0.00
-ATOM     81   CG  ASN    A   23     0.00     0.00
-ATOM     82  OD1  ASN    A   23     0.00     0.00
-ATOM     83  ND2  ASN    A   23     0.00     0.00
-ATOM     84    N  GLN    A   24     1.09     0.02
-ATOM     85   CA  GLN    A   24    10.87     0.16
-ATOM     86    C  GLN    A   24     0.00     0.00
-ATOM     87    O  GLN    A   24    34.29     0.50
-ATOM     88   CB  GLN    A   24    25.36     0.37
-ATOM     89   CG  GLN    A   24    21.74     0.32
-ATOM     90   CD  GLN    A   24     3.62     0.05
-ATOM     91  OE1  GLN    A   24     1.07     0.02
-ATOM     92  NE2  GLN    A   24     8.75     0.13
-ATOM     93    N  LEU    A   25     0.00     0.00
-ATOM     94   CA  LEU    A   25     2.42     0.04
-ATOM     95    C  LEU    A   25     3.62     0.05
-ATOM     96    O  LEU    A   25    17.14     0.25
-ATOM     97   CB  LEU    A   25     0.00     0.00
-ATOM     98   CG  LEU    A   25     0.00     0.00
-ATOM     99  CD1  LEU    A   25     9.66     0.14
-ATOM    100  CD2  LEU    A   25    42.27     0.61
-ATOM    101    N  GLY    A   26     1.09     0.02
-ATOM    102   CA  GLY    A   26    25.36     0.37
-ATOM    103    C  GLY    A   26     0.00     0.00
-ATOM    104    O  GLY    A   26    22.50     0.33
-ATOM    105    N  SER    A   27     0.00     0.00
-ATOM    106   CA  SER    A   27     0.00     0.00
-ATOM    107    C  SER    A   27     0.00     0.00
-ATOM    108    O  SER    A   27     0.00     0.00
-ATOM    109   CB  SER    A   27     0.00     0.00
-ATOM    110   OG  SER    A   27     0.00     0.00
-ATOM    111    N  THR    A   28     0.00     0.00
-ATOM    112   CA  THR    A   28     0.00     0.00
-ATOM    113    C  THR    A   28     0.00     0.00
-ATOM    114    O  THR    A   28     0.00     0.00
-ATOM    115   CB  THR    A   28     0.00     0.00
-ATOM    116  OG1  THR    A   28    18.21     0.26
-ATOM    117  CG2  THR    A   28     8.45     0.12
-ATOM    118    N  PHE    A   29     0.00     0.00
-ATOM    119   CA  PHE    A   29     0.00     0.00
-ATOM    120    C  PHE    A   29     0.00     0.00
-ATOM    121    O  PHE    A   29     0.00     0.00
-ATOM    122   CB  PHE    A   29     0.00     0.00
-ATOM    123   CG  PHE    A   29     0.00     0.00
-ATOM    124  CD1  PHE    A   29     0.00     0.00
-ATOM    125  CD2  PHE    A   29     0.00     0.00
-ATOM    126  CE1  PHE    A   29     0.00     0.00
-ATOM    127  CE2  PHE    A   29     0.00     0.00
-ATOM    128   CZ  PHE    A   29     1.21     0.02
-ATOM    129    N  ILE    A   30     0.00     0.00
-ATOM    130   CA  ILE    A   30     0.00     0.00
-ATOM    131    C  ILE    A   30     0.00     0.00
-ATOM    132    O  ILE    A   30     1.07     0.02
-ATOM    133   CB  ILE    A   30     0.00     0.00
-ATOM    134  CG1  ILE    A   30     0.00     0.00
-ATOM    135  CG2  ILE    A   30    37.44     0.54
-ATOM    136  CD1  ILE    A   30    10.87     0.16
-ATOM    137    N  VAL    A   31     0.00     0.00
-ATOM    138   CA  VAL    A   31     0.00     0.00
-ATOM    139    C  VAL    A   31     0.00     0.00
-ATOM    140    O  VAL    A   31     3.21     0.05
-ATOM    141   CB  VAL    A   31     0.00     0.00
-ATOM    142  CG1  VAL    A   31     0.00     0.00
-ATOM    143  CG2  VAL    A   31     0.00     0.00
-ATOM    144    N  THR    A   32     0.00     0.00
-ATOM    145   CA  THR    A   32     0.00     0.00
-ATOM    146    C  THR    A   32     0.00     0.00
-ATOM    147    O  THR    A   32     2.14     0.03
-ATOM    148   CB  THR    A   32     0.00     0.00
-ATOM    149  OG1  THR    A   32    34.29     0.50
-ATOM    150  CG2  THR    A   32    42.27     0.61
-ATOM    151    N  ALA    A   33     0.00     0.00
-ATOM    152   CA  ALA    A   33     0.00     0.00
-ATOM    153    C  ALA    A   33     0.00     0.00
-ATOM    154    O  ALA    A   33     5.36     0.08
-ATOM    155   CB  ALA    A   33     0.00     0.00
-ATOM    156    N  GLY    A   34     1.09     0.02
-ATOM    157   CA  GLY    A   34    18.11     0.26
-ATOM    158    C  GLY    A   34     0.00     0.00
-ATOM    159    O  GLY    A   34     0.00     0.00
-ATOM    160    N  ALA    A   35     7.66     0.11
-ATOM    161   CA  ALA    A   35     4.83     0.07
-ATOM    162    C  ALA    A   35     1.21     0.02
-ATOM    163    O  ALA    A   35    23.57     0.34
-ATOM    164   CB  ALA    A   35    60.38     0.88
-ATOM    165    N  ASP    A   36     1.09     0.02
-ATOM    166   CA  ASP    A   36     8.45     0.12
-ATOM    167    C  ASP    A   36     1.21     0.02
-ATOM    168    O  ASP    A   36    11.79     0.17
-ATOM    169   CB  ASP    A   36    31.40     0.46
-ATOM    170   CG  ASP    A   36     4.83     0.07
-ATOM    171  OD1  ASP    A   36     6.43     0.09
-ATOM    172  OD2  ASP    A   36    30.00     0.44
-ATOM    173    N  GLY    A   37     0.00     0.00
-ATOM    174   CA  GLY    A   37     1.21     0.02
-ATOM    175    C  GLY    A   37     0.00     0.00
-ATOM    176    O  GLY    A   37     0.00     0.00
-ATOM    177    N  ALA    A   38     0.00     0.00
-ATOM    178   CA  ALA    A   38     0.00     0.00
-ATOM    179    C  ALA    A   38     0.00     0.00
-ATOM    180    O  ALA    A   38     1.07     0.02
-ATOM    181   CB  ALA    A   38    20.53     0.30
-ATOM    182    N  LEU    A   39     0.00     0.00
-ATOM    183   CA  LEU    A   39     0.00     0.00
-ATOM    184    C  LEU    A   39     0.00     0.00
-ATOM    185    O  LEU    A   39     1.07     0.02
-ATOM    186   CB  LEU    A   39     0.00     0.00
-ATOM    187   CG  LEU    A   39     0.00     0.00
-ATOM    188  CD1  LEU    A   39     1.21     0.02
-ATOM    189  CD2  LEU    A   39     0.00     0.00
-ATOM    190    N  THR    A   40     0.00     0.00
-ATOM    191   CA  THR    A   40     0.00     0.00
-ATOM    192    C  THR    A   40     0.00     0.00
-ATOM    193    O  THR    A   40     0.00     0.00
-ATOM    194   CB  THR    A   40    10.87     0.16
-ATOM    195  OG1  THR    A   40    27.86     0.40
-ATOM    196  CG2  THR    A   40    36.23     0.53
-ATOM    197    N  GLY    A   41     4.37     0.06
-ATOM    198   CA  GLY    A   41    13.28     0.19
-ATOM    199    C  GLY    A   41     2.42     0.04
-ATOM    200    O  GLY    A   41     8.57     0.12
-ATOM    201    N  THR    A   42     0.00     0.00
-ATOM    202   CA  THR    A   42     0.00     0.00
-ATOM    203    C  THR    A   42     0.00     0.00
-ATOM    204    O  THR    A   42     0.00     0.00
-ATOM    205   CB  THR    A   42     3.62     0.05
-ATOM    206  OG1  THR    A   42    26.79     0.39
-ATOM    207  CG2  THR    A   42     0.00     0.00
-ATOM    208    N  TYR    A   43     0.00     0.00
-ATOM    209   CA  TYR    A   43     0.00     0.00
-ATOM    210    C  TYR    A   43     0.00     0.00
-ATOM    211    O  TYR    A   43     0.00     0.00
-ATOM    212   CB  TYR    A   43     0.00     0.00
-ATOM    213   CG  TYR    A   43     0.00     0.00
-ATOM    214  CD1  TYR    A   43     0.00     0.00
-ATOM    215  CD2  TYR    A   43     0.00     0.00
-ATOM    216  CE1  TYR    A   43     0.00     0.00
-ATOM    217  CE2  TYR    A   43     0.00     0.00
-ATOM    218   CZ  TYR    A   43     0.00     0.00
-ATOM    219   OH  TYR    A   43     0.00     0.00
-ATOM    220    N  GLU    A   44     0.00     0.00
-ATOM    221   CA  GLU    A   44     0.00     0.00
-ATOM    222    C  GLU    A   44     0.00     0.00
-ATOM    223    O  GLU    A   44     2.14     0.03
-ATOM    224   CB  GLU    A   44     0.00     0.00
-ATOM    225   CG  GLU    A   44     3.62     0.05
-ATOM    226   CD  GLU    A   44     3.62     0.05
-ATOM    227  OE1  GLU    A   44    17.14     0.25
-ATOM    228  OE2  GLU    A   44    38.57     0.56
-ATOM    229    N  SER    A   45     0.00     0.00
-ATOM    230   CA  SER    A   45     0.00     0.00
-ATOM    231    C  SER    A   45     1.21     0.02
-ATOM    232    O  SER    A   45    15.00     0.22
-ATOM    233   CB  SER    A   45     0.00     0.00
-ATOM    234   OG  SER    A   45     0.00     0.00
-ATOM    235    N  ALA    A   46     0.00     0.00
-ATOM    236   CA  ALA    A   46     9.66     0.14
-ATOM    237    C  ALA    A   46     2.42     0.04
-ATOM    238    O  ALA    A   46    35.36     0.51
-ATOM    239   CB  ALA    A   46    12.08     0.18
-ATOM    240    N  VAL    A   47     0.00     0.00
-ATOM    241   CA  VAL    A   47     7.25     0.11
-ATOM    242    C  VAL    A   47     2.42     0.04
-ATOM    243    O  VAL    A   47     0.00     0.00
-ATOM    244   CB  VAL    A   47     8.45     0.12
-ATOM    245  CG1  VAL    A   47    27.78     0.40
-ATOM    246  CG2  VAL    A   47    14.49     0.21
-ATOM    247    N  GLY    A   48     8.75     0.13
-ATOM    248   CA  GLY    A   48    19.32     0.28
-ATOM    249    C  GLY    A   48     4.83     0.07
-ATOM    250    O  GLY    A   48    18.21     0.26
-ATOM    251    N  ASN    A   49     3.28     0.05
-ATOM    252   CA  ASN    A   49     1.21     0.02
-ATOM    253    C  ASN    A   49     0.00     0.00
-ATOM    254    O  ASN    A   49     0.00     0.00
-ATOM    255   CB  ASN    A   49    13.28     0.19
-ATOM    256   CG  ASN    A   49     6.04     0.09
-ATOM    257  OD1  ASN    A   49    31.07     0.45
-ATOM    258  ND2  ASN    A   49    14.22     0.21
-ATOM    259    N  ALA    A   50     0.00     0.00
-ATOM    260   CA  ALA    A   50     0.00     0.00
-ATOM    261    C  ALA    A   50     0.00     0.00
-ATOM    262    O  ALA    A   50    18.21     0.26
-ATOM    263   CB  ALA    A   50     0.00     0.00
-ATOM    264    N  GLU    A   51     0.00     0.00
-ATOM    265   CA  GLU    A   51     4.83     0.07
-ATOM    266    C  GLU    A   51     0.00     0.00
-ATOM    267    O  GLU    A   51     0.00     0.00
-ATOM    268   CB  GLU    A   51    13.28     0.19
-ATOM    269   CG  GLU    A   51     0.00     0.00
-ATOM    270   CD  GLU    A   51     1.21     0.02
-ATOM    271  OE1  GLU    A   51     9.64     0.14
-ATOM    272  OE2  GLU    A   51    35.36     0.51
-ATOM    273    N  SER    A   52     7.66     0.11
-ATOM    274   CA  SER    A   52     1.21     0.02
-ATOM    275    C  SER    A   52     0.00     0.00
-ATOM    276    O  SER    A   52     1.07     0.02
-ATOM    277   CB  SER    A   52     7.25     0.11
-ATOM    278   OG  SER    A   52    32.14     0.47
-ATOM    279    N  ARG    A   53     0.00     0.00
-ATOM    280   CA  ARG    A   53     0.00     0.00
-ATOM    281    C  ARG    A   53     1.21     0.02
-ATOM    282    O  ARG    A   53    17.14     0.25
-ATOM    283   CB  ARG    A   53     0.00     0.00
-ATOM    284   CG  ARG    A   53    19.32     0.28
-ATOM    285   CD  ARG    A   53     4.83     0.07
-ATOM    286   NE  ARG    A   53     7.66     0.11
-ATOM    287   CZ  ARG    A   53     3.62     0.05
-ATOM    288  NH1  ARG    A   53    30.62     0.44
-ATOM    289  NH2  ARG    A   53    49.21     0.72
-ATOM    290    N  TYR    A   54     0.00     0.00
-ATOM    291   CA  TYR    A   54     1.21     0.02
-ATOM    292    C  TYR    A   54     2.42     0.04
-ATOM    293    O  TYR    A   54     0.00     0.00
-ATOM    294   CB  TYR    A   54     0.00     0.00
-ATOM    295   CG  TYR    A   54     0.00     0.00
-ATOM    296  CD1  TYR    A   54     0.00     0.00
-ATOM    297  CD2  TYR    A   54     0.00     0.00
-ATOM    298  CE1  TYR    A   54     0.00     0.00
-ATOM    299  CE2  TYR    A   54     0.00     0.00
-ATOM    300   CZ  TYR    A   54     0.00     0.00
-ATOM    301   OH  TYR    A   54     0.00     0.00
-ATOM    302    N  VAL    A   55     4.37     0.06
-ATOM    303   CA  VAL    A   55     0.00     0.00
-ATOM    304    C  VAL    A   55     0.00     0.00
-ATOM    305    O  VAL    A   55     7.50     0.11
-ATOM    306   CB  VAL    A   55     9.66     0.14
-ATOM    307  CG1  VAL    A   55    37.44     0.54
-ATOM    308  CG2  VAL    A   55    54.34     0.79
-ATOM    309    N  LEU    A   56     0.00     0.00
-ATOM    310   CA  LEU    A   56     0.00     0.00
-ATOM    311    C  LEU    A   56     1.21     0.02
-ATOM    312    O  LEU    A   56     4.29     0.06
-ATOM    313   CB  LEU    A   56     0.00     0.00
-ATOM    314   CG  LEU    A   56     0.00     0.00
-ATOM    315  CD1  LEU    A   56     0.00     0.00
-ATOM    316  CD2  LEU    A   56     0.00     0.00
-ATOM    317    N  THR    A   57     1.09     0.02
-ATOM    318   CA  THR    A   57     0.00     0.00
-ATOM    319    C  THR    A   57     0.00     0.00
-ATOM    320    O  THR    A   57     3.21     0.05
-ATOM    321   CB  THR    A   57     6.04     0.09
-ATOM    322  OG1  THR    A   57    31.07     0.45
-ATOM    323  CG2  THR    A   57    42.27     0.61
-ATOM    324    N  GLY    A   58     0.00     0.00
-ATOM    325   CA  GLY    A   58     6.04     0.09
-ATOM    326    C  GLY    A   58     0.00     0.00
-ATOM    327    O  GLY    A   58     4.29     0.06
-ATOM    328    N  ARG    A   59     2.19     0.03
-ATOM    329   CA  ARG    A   59     0.00     0.00
-ATOM    330    C  ARG    A   59     1.21     0.02
-ATOM    331    O  ARG    A   59     5.36     0.08
-ATOM    332   CB  ARG    A   59    19.32     0.28
-ATOM    333   CG  ARG    A   59    25.36     0.37
-ATOM    334   CD  ARG    A   59    14.49     0.21
-ATOM    335   NE  ARG    A   59    13.12     0.19
-ATOM    336   CZ  ARG    A   59     6.04     0.09
-ATOM    337  NH1  ARG    A   59    17.50     0.25
-ATOM    338  NH2  ARG    A   59    36.09     0.52
-ATOM    339    N  TYR    A   60     1.09     0.02
-ATOM    340   CA  TYR    A   60     1.21     0.02
-ATOM    341    C  TYR    A   60     2.42     0.04
-ATOM    342    O  TYR    A   60     8.57     0.12
-ATOM    343   CB  TYR    A   60     0.00     0.00
-ATOM    344   CG  TYR    A   60     0.00     0.00
-ATOM    345  CD1  TYR    A   60     0.00     0.00
-ATOM    346  CD2  TYR    A   60     0.00     0.00
-ATOM    347  CE1  TYR    A   60     0.00     0.00
-ATOM    348  CE2  TYR    A   60     0.00     0.00
-ATOM    349   CZ  TYR    A   60     0.00     0.00
-ATOM    350   OH  TYR    A   60     5.36     0.08
-ATOM    351    N  ASP    A   61     2.19     0.03
-ATOM    352   CA  ASP    A   61     8.45     0.12
-ATOM    353    C  ASP    A   61     0.00     0.00
-ATOM    354    O  ASP    A   61     0.00     0.00
-ATOM    355   CB  ASP    A   61     7.25     0.11
-ATOM    356   CG  ASP    A   61     4.83     0.07
-ATOM    357  OD1  ASP    A   61    13.93     0.20
-ATOM    358  OD2  ASP    A   61    28.93     0.42
-ATOM    359    N  SER    A   62     3.28     0.05
-ATOM    360   CA  SER    A   62     0.00     0.00
-ATOM    361    C  SER    A   62     0.00     0.00
-ATOM    362    O  SER    A   62    28.93     0.42
-ATOM    363   CB  SER    A   62     0.00     0.00
-ATOM    364   OG  SER    A   62    30.00     0.44
-ATOM    365    N  ALA    A   63     0.00     0.00
-ATOM    366   CA  ALA    A   63     6.04     0.09
-ATOM    367    C  ALA    A   63     0.00     0.00
-ATOM    368    O  ALA    A   63    19.29     0.28
-ATOM    369   CB  ALA    A   63    49.51     0.72
-ATOM    370    N  PRO    A   64     0.00     0.00
-ATOM    371   CA  PRO    A   64     0.00     0.00
-ATOM    372    C  PRO    A   64     0.00     0.00
-ATOM    373    O  PRO    A   64    16.07     0.23
-ATOM    374   CB  PRO    A   64     3.62     0.05
-ATOM    375   CG  PRO    A   64    15.70     0.23
-ATOM    376   CD  PRO    A   64     7.25     0.11
-ATOM    377    N  ALA    A   65     7.66     0.11
-ATOM    378   CA  ALA    A   65    12.08     0.18
-ATOM    379    C  ALA    A   65     0.00     0.00
-ATOM    380    O  ALA    A   65    11.79     0.17
-ATOM    381   CB  ALA    A   65    33.81     0.49
-ATOM    382    N  THR    A   66     9.84     0.14
-ATOM    383   CA  THR    A   66     2.42     0.04
-ATOM    384    C  THR    A   66     1.21     0.02
-ATOM    385    O  THR    A   66    24.64     0.36
-ATOM    386   CB  THR    A   66    15.70     0.23
-ATOM    387  OG1  THR    A   66    35.36     0.51
-ATOM    388  CG2  THR    A   66    54.34     0.79
-ATOM    389    N  ASP    A   67     2.19     0.03
-ATOM    390   CA  ASP    A   67    10.87     0.16
-ATOM    391    C  ASP    A   67     2.42     0.04
-ATOM    392    O  ASP    A   67    31.07     0.45
-ATOM    393   CB  ASP    A   67    26.57     0.39
-ATOM    394   CG  ASP    A   67     2.42     0.04
-ATOM    395  OD1  ASP    A   67     0.00     0.00
-ATOM    396  OD2  ASP    A   67    34.29     0.50
-ATOM    397    N  GLY    A   68     2.19     0.03
-ATOM    398   CA  GLY    A   68    30.19     0.44
-ATOM    399    C  GLY    A   68     1.21     0.02
-ATOM    400    O  GLY    A   68    39.64     0.58
-ATOM    401    N  SER    A   69     0.00     0.00
-ATOM    402   CA  SER    A   69     8.45     0.12
-ATOM    403    C  SER    A   69     1.21     0.02
-ATOM    404    O  SER    A   69    16.07     0.23
-ATOM    405   CB  SER    A   69    15.70     0.23
-ATOM    406   OG  SER    A   69    21.43     0.31
-ATOM    407    N  GLY    A   70     8.75     0.13
-ATOM    408   CA  GLY    A   70     1.21     0.02
-ATOM    409    C  GLY    A   70     0.00     0.00
-ATOM    410    O  GLY    A   70    16.07     0.23
-ATOM    411    N  THR    A   71     0.00     0.00
-ATOM    412   CA  THR    A   71     0.00     0.00
-ATOM    413    C  THR    A   71     0.00     0.00
-ATOM    414    O  THR    A   71     0.00     0.00
-ATOM    415   CB  THR    A   71     0.00     0.00
-ATOM    416  OG1  THR    A   71     7.50     0.11
-ATOM    417  CG2  THR    A   71     0.00     0.00
-ATOM    418    N  ALA    A   72     3.28     0.05
-ATOM    419   CA  ALA    A   72     0.00     0.00
-ATOM    420    C  ALA    A   72     2.42     0.04
-ATOM    421    O  ALA    A   72     2.14     0.03
-ATOM    422   CB  ALA    A   72    55.55     0.81
-ATOM    423    N  LEU    A   73     1.09     0.02
-ATOM    424   CA  LEU    A   73     1.21     0.02
-ATOM    425    C  LEU    A   73     3.62     0.05
-ATOM    426    O  LEU    A   73     4.29     0.06
-ATOM    427   CB  LEU    A   73     0.00     0.00
-ATOM    428   CG  LEU    A   73     0.00     0.00
-ATOM    429  CD1  LEU    A   73     0.00     0.00
-ATOM    430  CD2  LEU    A   73     0.00     0.00
-ATOM    431    N  GLY    A   74     1.09     0.02
-ATOM    432   CA  GLY    A   74    13.28     0.19
-ATOM    433    C  GLY    A   74     2.42     0.04
-ATOM    434    O  GLY    A   74     2.14     0.03
-ATOM    435    N  TRP    A   75     1.09     0.02
-ATOM    436   CA  TRP    A   75     1.21     0.02
-ATOM    437    C  TRP    A   75     0.00     0.00
-ATOM    438    O  TRP    A   75     1.07     0.02
-ATOM    439   CB  TRP    A   75     0.00     0.00
-ATOM    440   CG  TRP    A   75     0.00     0.00
-ATOM    441  CD1  TRP    A   75     0.00     0.00
-ATOM    442  CD2  TRP    A   75     0.00     0.00
-ATOM    443  NE1  TRP    A   75     0.00     0.00
-ATOM    444  CE2  TRP    A   75     0.00     0.00
-ATOM    445  CE3  TRP    A   75     0.00     0.00
-ATOM    446  CZ2  TRP    A   75     0.00     0.00
-ATOM    447  CZ3  TRP    A   75     1.21     0.02
-ATOM    448  CH2  TRP    A   75     0.00     0.00
-ATOM    449    N  THR    A   76     0.00     0.00
-ATOM    450   CA  THR    A   76     0.00     0.00
-ATOM    451    C  THR    A   76     1.21     0.02
-ATOM    452    O  THR    A   76     2.14     0.03
-ATOM    453   CB  THR    A   76     3.62     0.05
-ATOM    454  OG1  THR    A   76    24.64     0.36
-ATOM    455  CG2  THR    A   76    25.36     0.37
-ATOM    456    N  VAL    A   77     0.00     0.00
-ATOM    457   CA  VAL    A   77     0.00     0.00
-ATOM    458    C  VAL    A   77     0.00     0.00
-ATOM    459    O  VAL    A   77     0.00     0.00
-ATOM    460   CB  VAL    A   77     0.00     0.00
-ATOM    461  CG1  VAL    A   77     0.00     0.00
-ATOM    462  CG2  VAL    A   77     0.00     0.00
-ATOM    463    N  ALA    A   78     6.56     0.10
-ATOM    464   CA  ALA    A   78     0.00     0.00
-ATOM    465    C  ALA    A   78     0.00     0.00
-ATOM    466    O  ALA    A   78     5.36     0.08
-ATOM    467   CB  ALA    A   78    49.51     0.72
-ATOM    468    N  TRP    A   79     0.00     0.00
-ATOM    469   CA  TRP    A   79     0.00     0.00
-ATOM    470    C  TRP    A   79     0.00     0.00
-ATOM    471    O  TRP    A   79     0.00     0.00
-ATOM    472   CB  TRP    A   79     0.00     0.00
-ATOM    473   CG  TRP    A   79     0.00     0.00
-ATOM    474  CD1  TRP    A   79     0.00     0.00
-ATOM    475  CD2  TRP    A   79     0.00     0.00
-ATOM    476  NE1  TRP    A   79     0.00     0.00
-ATOM    477  CE2  TRP    A   79     0.00     0.00
-ATOM    478  CE3  TRP    A   79     0.00     0.00
-ATOM    479  CZ2  TRP    A   79     0.00     0.00
-ATOM    480  CZ3  TRP    A   79     0.00     0.00
-ATOM    481  CH2  TRP    A   79     0.00     0.00
-ATOM    482    N  LYS    A   80     0.00     0.00
-ATOM    483   CA  LYS    A   80     0.00     0.00
-ATOM    484    C  LYS    A   80     0.00     0.00
-ATOM    485    O  LYS    A   80    20.36     0.30
-ATOM    486   CB  LYS    A   80     8.45     0.12
-ATOM    487   CG  LYS    A   80     0.00     0.00
-ATOM    488   CD  LYS    A   80    22.94     0.33
-ATOM    489   CE  LYS    A   80    35.02     0.51
-ATOM    490   NZ  LYS    A   80    44.84     0.65
-ATOM    491    N  ASN    A   81     0.00     0.00
-ATOM    492   CA  ASN    A   81     6.04     0.09
-ATOM    493    C  ASN    A   81     2.42     0.04
-ATOM    494    O  ASN    A   81     9.64     0.14
-ATOM    495   CB  ASN    A   81    10.87     0.16
-ATOM    496   CG  ASN    A   81     0.00     0.00
-ATOM    497  OD1  ASN    A   81     0.00     0.00
-ATOM    498  ND2  ASN    A   81     0.00     0.00
-ATOM    499    N  ASN    A   82     2.19     0.03
-ATOM    500   CA  ASN    A   82     1.21     0.02
-ATOM    501    C  ASN    A   82     0.00     0.00
-ATOM    502    O  ASN    A   82    34.29     0.50
-ATOM    503   CB  ASN    A   82    10.87     0.16
-ATOM    504   CG  ASN    A   82     6.04     0.09
-ATOM    505  OD1  ASN    A   82    46.07     0.67
-ATOM    506  ND2  ASN    A   82    53.59     0.78
-ATOM    507    N  TYR    A   83     0.00     0.00
-ATOM    508   CA  TYR    A   83     2.42     0.04
-ATOM    509    C  TYR    A   83     1.21     0.02
-ATOM    510    O  TYR    A   83    31.07     0.45
-ATOM    511   CB  TYR    A   83     1.21     0.02
-ATOM    512   CG  TYR    A   83     1.21     0.02
-ATOM    513  CD1  TYR    A   83    19.32     0.28
-ATOM    514  CD2  TYR    A   83     1.21     0.02
-ATOM    515  CE1  TYR    A   83    27.78     0.40
-ATOM    516  CE2  TYR    A   83    10.87     0.16
-ATOM    517   CZ  TYR    A   83     4.83     0.07
-ATOM    518   OH  TYR    A   83    50.36     0.73
-ATOM    519    N  ARG    A   84     0.00     0.00
-ATOM    520   CA  ARG    A   84     6.04     0.09
-ATOM    521    C  ARG    A   84     2.42     0.04
-ATOM    522    O  ARG    A   84     0.00     0.00
-ATOM    523   CB  ARG    A   84    12.08     0.18
-ATOM    524   CG  ARG    A   84     0.00     0.00
-ATOM    525   CD  ARG    A   84     3.62     0.05
-ATOM    526   NE  ARG    A   84     4.37     0.06
-ATOM    527   CZ  ARG    A   84     7.25     0.11
-ATOM    528  NH1  ARG    A   84    17.50     0.25
-ATOM    529  NH2  ARG    A   84    25.15     0.37
-ATOM    530    N  ASN    A   85     4.37     0.06
-ATOM    531   CA  ASN    A   85     0.00     0.00
-ATOM    532    C  ASN    A   85     0.00     0.00
-ATOM    533    O  ASN    A   85    17.14     0.25
-ATOM    534   CB  ASN    A   85    15.70     0.23
-ATOM    535   CG  ASN    A   85     0.00     0.00
-ATOM    536  OD1  ASN    A   85     3.21     0.05
-ATOM    537  ND2  ASN    A   85    19.68     0.29
-ATOM    538    N  ALA    A   86     0.00     0.00
-ATOM    539   CA  ALA    A   86     0.00     0.00
-ATOM    540    C  ALA    A   86     0.00     0.00
-ATOM    541    O  ALA    A   86    18.21     0.26
-ATOM    542   CB  ALA    A   86     1.21     0.02
-ATOM    543    N  HIS    A   87     0.00     0.00
-ATOM    544   CA  HIS    A   87     6.04     0.09
-ATOM    545    C  HIS    A   87     6.04     0.09
-ATOM    546    O  HIS    A   87     1.07     0.02
-ATOM    547   CB  HIS    A   87    15.70     0.23
-ATOM    548   CG  HIS    A   87     4.83     0.07
-ATOM    549  ND1  HIS    A   87    15.31     0.22
-ATOM    550  CD2  HIS    A   87    30.19     0.44
-ATOM    551  CE1  HIS    A   87    27.78     0.40
-ATOM    552  NE2  HIS    A   87    22.97     0.33
-ATOM    553    N  SER    A   88     2.19     0.03
-ATOM    554   CA  SER    A   88     2.42     0.04
-ATOM    555    C  SER    A   88     3.62     0.05
-ATOM    556    O  SER    A   88     4.29     0.06
-ATOM    557   CB  SER    A   88     0.00     0.00
-ATOM    558   OG  SER    A   88     0.00     0.00
-ATOM    559    N  ALA    A   89     0.00     0.00
-ATOM    560   CA  ALA    A   89     0.00     0.00
-ATOM    561    C  ALA    A   89     0.00     0.00
-ATOM    562    O  ALA    A   89     3.21     0.05
-ATOM    563   CB  ALA    A   89    31.40     0.46
-ATOM    564    N  THR    A   90     0.00     0.00
-ATOM    565   CA  THR    A   90     0.00     0.00
-ATOM    566    C  THR    A   90     0.00     0.00
-ATOM    567    O  THR    A   90     0.00     0.00
-ATOM    568   CB  THR    A   90     0.00     0.00
-ATOM    569  OG1  THR    A   90     0.00     0.00
-ATOM    570  CG2  THR    A   90     0.00     0.00
-ATOM    571    N  THR    A   91     0.00     0.00
-ATOM    572   CA  THR    A   91     0.00     0.00
-ATOM    573    C  THR    A   91     0.00     0.00
-ATOM    574    O  THR    A   91     3.21     0.05
-ATOM    575   CB  THR    A   91     6.04     0.09
-ATOM    576  OG1  THR    A   91    20.36     0.30
-ATOM    577  CG2  THR    A   91    31.40     0.46
-ATOM    578    N  TRP    A   92     0.00     0.00
-ATOM    579   CA  TRP    A   92     0.00     0.00
-ATOM    580    C  TRP    A   92     0.00     0.00
-ATOM    581    O  TRP    A   92     3.21     0.05
-ATOM    582   CB  TRP    A   92     0.00     0.00
-ATOM    583   CG  TRP    A   92     0.00     0.00
-ATOM    584  CD1  TRP    A   92     0.00     0.00
-ATOM    585  CD2  TRP    A   92     0.00     0.00
-ATOM    586  NE1  TRP    A   92     0.00     0.00
-ATOM    587  CE2  TRP    A   92     0.00     0.00
-ATOM    588  CE3  TRP    A   92     0.00     0.00
-ATOM    589  CZ2  TRP    A   92     0.00     0.00
-ATOM    590  CZ3  TRP    A   92     0.00     0.00
-ATOM    591  CH2  TRP    A   92     0.00     0.00
-ATOM    592    N  SER    A   93     0.00     0.00
-ATOM    593   CA  SER    A   93     0.00     0.00
-ATOM    594    C  SER    A   93     1.21     0.02
-ATOM    595    O  SER    A   93     6.43     0.09
-ATOM    596   CB  SER    A   93    27.78     0.40
-ATOM    597   OG  SER    A   93    43.93     0.64
-ATOM    598    N  GLY    A   94     0.00     0.00
-ATOM    599   CA  GLY    A   94     7.25     0.11
-ATOM    600    C  GLY    A   94     3.62     0.05
-ATOM    601    O  GLY    A   94     7.50     0.11
-ATOM    602    N  GLN    A   95     0.00     0.00
-ATOM    603   CA  GLN    A   95     0.00     0.00
-ATOM    604    C  GLN    A   95     0.00     0.00
-ATOM    605    O  GLN    A   95     0.00     0.00
-ATOM    606   CB  GLN    A   95     2.42     0.04
-ATOM    607   CG  GLN    A   95     4.83     0.07
-ATOM    608   CD  GLN    A   95     6.04     0.09
-ATOM    609  OE1  GLN    A   95    53.57     0.78
-ATOM    610  NE2  GLN    A   95    18.59     0.27
-ATOM    611    N  TYR    A   96     0.00     0.00
-ATOM    612   CA  TYR    A   96     0.00     0.00
-ATOM    613    C  TYR    A   96     0.00     0.00
-ATOM    614    O  TYR    A   96     2.14     0.03
-ATOM    615   CB  TYR    A   96     0.00     0.00
-ATOM    616   CG  TYR    A   96     0.00     0.00
-ATOM    617  CD1  TYR    A   96     0.00     0.00
-ATOM    618  CD2  TYR    A   96     1.21     0.02
-ATOM    619  CE1  TYR    A   96     0.00     0.00
-ATOM    620  CE2  TYR    A   96     6.04     0.09
-ATOM    621   CZ  TYR    A   96     0.00     0.00
-ATOM    622   OH  TYR    A   96    15.00     0.22
-ATOM    623    N  VAL    A   97     0.00     0.00
-ATOM    624   CA  VAL    A   97     1.21     0.02
-ATOM    625    C  VAL    A   97     0.00     0.00
-ATOM    626    O  VAL    A   97     0.00     0.00
-ATOM    627   CB  VAL    A   97     0.00     0.00
-ATOM    628  CG1  VAL    A   97    43.47     0.63
-ATOM    629  CG2  VAL    A   97    12.08     0.18
-ATOM    630    N  GLY    A   98     8.75     0.13
-ATOM    631   CA  GLY    A   98     9.66     0.14
-ATOM    632    C  GLY    A   98     3.62     0.05
-ATOM    633    O  GLY    A   98    23.57     0.34
-ATOM    634    N  GLY    A   99     9.84     0.14
-ATOM    635   CA  GLY    A   99    25.36     0.37
-ATOM    636    C  GLY    A   99     3.62     0.05
-ATOM    637    O  GLY    A   99    17.14     0.25
-ATOM    638    N  ALA    A  100    10.94     0.16
-ATOM    639   CA  ALA    A  100    10.87     0.16
-ATOM    640    C  ALA    A  100     0.00     0.00
-ATOM    641    O  ALA    A  100    28.93     0.42
-ATOM    642   CB  ALA    A  100    50.72     0.74
-ATOM    643    N  GLU    A  101     2.19     0.03
-ATOM    644   CA  GLU    A  101     1.21     0.02
-ATOM    645    C  GLU    A  101     0.00     0.00
-ATOM    646    O  GLU    A  101    13.93     0.20
-ATOM    647   CB  GLU    A  101    13.28     0.19
-ATOM    648   CG  GLU    A  101    25.36     0.37
-ATOM    649   CD  GLU    A  101     4.83     0.07
-ATOM    650  OE1  GLU    A  101    39.64     0.58
-ATOM    651  OE2  GLU    A  101    43.93     0.64
-ATOM    652    N  ALA    A  102     2.19     0.03
-ATOM    653   CA  ALA    A  102     0.00     0.00
-ATOM    654    C  ALA    A  102     0.00     0.00
-ATOM    655    O  ALA    A  102     4.29     0.06
-ATOM    656   CB  ALA    A  102    13.28     0.19
-ATOM    657    N  ARG    A  103     0.00     0.00
-ATOM    658   CA  ARG    A  103     0.00     0.00
-ATOM    659    C  ARG    A  103     0.00     0.00
-ATOM    660    O  ARG    A  103     0.00     0.00
-ATOM    661   CB  ARG    A  103     4.83     0.07
-ATOM    662   CG  ARG    A  103     0.00     0.00
-ATOM    663   CD  ARG    A  103    20.53     0.30
-ATOM    664   NE  ARG    A  103    20.78     0.30
-ATOM    665   CZ  ARG    A  103     3.62     0.05
-ATOM    666  NH1  ARG    A  103     9.84     0.14
-ATOM    667  NH2  ARG    A  103    36.09     0.52
-ATOM    668    N  ILE    A  104     0.00     0.00
-ATOM    669   CA  ILE    A  104     0.00     0.00
-ATOM    670    C  ILE    A  104     0.00     0.00
-ATOM    671    O  ILE    A  104     0.00     0.00
-ATOM    672   CB  ILE    A  104     0.00     0.00
-ATOM    673  CG1  ILE    A  104     0.00     0.00
-ATOM    674  CG2  ILE    A  104     0.00     0.00
-ATOM    675  CD1  ILE    A  104     0.00     0.00
-ATOM    676    N  ASN    A  105     0.00     0.00
-ATOM    677   CA  ASN    A  105     0.00     0.00
-ATOM    678    C  ASN    A  105     2.42     0.04
-ATOM    679    O  ASN    A  105     5.36     0.08
-ATOM    680   CB  ASN    A  105    20.53     0.30
-ATOM    681   CG  ASN    A  105     4.83     0.07
-ATOM    682  OD1  ASN    A  105     7.50     0.11
-ATOM    683  ND2  ASN    A  105    28.43     0.41
-ATOM    684    N  THR    A  106     1.09     0.02
-ATOM    685   CA  THR    A  106     1.21     0.02
-ATOM    686    C  THR    A  106     2.42     0.04
-ATOM    687    O  THR    A  106     6.43     0.09
-ATOM    688   CB  THR    A  106     0.00     0.00
-ATOM    689  OG1  THR    A  106     0.00     0.00
-ATOM    690  CG2  THR    A  106     0.00     0.00
-ATOM    691    N  GLN    A  107     0.00     0.00
-ATOM    692   CA  GLN    A  107     0.00     0.00
-ATOM    693    C  GLN    A  107     1.21     0.02
-ATOM    694    O  GLN    A  107     2.14     0.03
-ATOM    695   CB  GLN    A  107    15.70     0.23
-ATOM    696   CG  GLN    A  107    10.87     0.16
-ATOM    697   CD  GLN    A  107     6.04     0.09
-ATOM    698  OE1  GLN    A  107    51.43     0.75
-ATOM    699  NE2  GLN    A  107    26.25     0.38
-ATOM    700    N  TRP    A  108     0.00     0.00
-ATOM    701   CA  TRP    A  108     1.21     0.02
-ATOM    702    C  TRP    A  108     0.00     0.00
-ATOM    703    O  TRP    A  108     1.07     0.02
-ATOM    704   CB  TRP    A  108     0.00     0.00
-ATOM    705   CG  TRP    A  108     0.00     0.00
-ATOM    706  CD1  TRP    A  108     0.00     0.00
-ATOM    707  CD2  TRP    A  108     0.00     0.00
-ATOM    708  NE1  TRP    A  108     0.00     0.00
-ATOM    709  CE2  TRP    A  108     0.00     0.00
-ATOM    710  CE3  TRP    A  108     0.00     0.00
-ATOM    711  CZ2  TRP    A  108    15.70     0.23
-ATOM    712  CZ3  TRP    A  108     0.00     0.00
-ATOM    713  CH2  TRP    A  108    14.49     0.21
-ATOM    714    N  LEU    A  109     0.00     0.00
-ATOM    715   CA  LEU    A  109     0.00     0.00
-ATOM    716    C  LEU    A  109     0.00     0.00
-ATOM    717    O  LEU    A  109     3.21     0.05
-ATOM    718   CB  LEU    A  109     2.42     0.04
-ATOM    719   CG  LEU    A  109     8.45     0.12
-ATOM    720  CD1  LEU    A  109    55.55     0.81
-ATOM    721  CD2  LEU    A  109    20.53     0.30
-ATOM    722    N  LEU    A  110     0.00     0.00
-ATOM    723   CA  LEU    A  110     0.00     0.00
-ATOM    724    C  LEU    A  110     0.00     0.00
-ATOM    725    O  LEU    A  110     0.00     0.00
-ATOM    726   CB  LEU    A  110     0.00     0.00
-ATOM    727   CG  LEU    A  110     3.62     0.05
-ATOM    728  CD1  LEU    A  110     0.00     0.00
-ATOM    729  CD2  LEU    A  110     8.45     0.12
-ATOM    730    N  THR    A  111     0.00     0.00
-ATOM    731   CA  THR    A  111     0.00     0.00
-ATOM    732    C  THR    A  111     0.00     0.00
-ATOM    733    O  THR    A  111     3.21     0.05
-ATOM    734   CB  THR    A  111     6.04     0.09
-ATOM    735  OG1  THR    A  111    17.14     0.25
-ATOM    736  CG2  THR    A  111    30.19     0.44
-ATOM    737    N  SER    A  112     0.00     0.00
-ATOM    738   CA  SER    A  112     0.00     0.00
-ATOM    739    C  SER    A  112     0.00     0.00
-ATOM    740    O  SER    A  112     3.21     0.05
-ATOM    741   CB  SER    A  112    13.28     0.19
-ATOM    742   OG  SER    A  112    32.14     0.47
-ATOM    743    N  GLY    A  113     1.09     0.02
-ATOM    744   CA  GLY    A  113    33.81     0.49
-ATOM    745    C  GLY    A  113     3.62     0.05
-ATOM    746    O  GLY    A  113    25.72     0.37
-ATOM    747    N  THR    A  114     3.28     0.05
-ATOM    748   CA  THR    A  114     8.45     0.12
-ATOM    749    C  THR    A  114     4.83     0.07
-ATOM    750    O  THR    A  114    31.07     0.45
-ATOM    751   CB  THR    A  114     1.21     0.02
-ATOM    752  OG1  THR    A  114     7.50     0.11
-ATOM    753  CG2  THR    A  114    10.87     0.16
-ATOM    754    N  THR    A  115     2.19     0.03
-ATOM    755   CA  THR    A  115     6.04     0.09
-ATOM    756    C  THR    A  115     2.42     0.04
-ATOM    757    O  THR    A  115     1.07     0.02
-ATOM    758   CB  THR    A  115    10.87     0.16
-ATOM    759  OG1  THR    A  115     5.36     0.08
-ATOM    760  CG2  THR    A  115    60.38     0.88
-ATOM    761    N  GLU    A  116     3.28     0.05
-ATOM    762   CA  GLU    A  116     4.83     0.07
-ATOM    763    C  GLU    A  116     1.21     0.02
-ATOM    764    O  GLU    A  116    17.14     0.25
-ATOM    765   CB  GLU    A  116    18.11     0.26
-ATOM    766   CG  GLU    A  116    24.15     0.35
-ATOM    767   CD  GLU    A  116     9.66     0.14
-ATOM    768  OE1  GLU    A  116    45.00     0.65
-ATOM    769  OE2  GLU    A  116    52.50     0.76
-ATOM    770    N  ALA    A  117     4.37     0.06
-ATOM    771   CA  ALA    A  117     9.66     0.14
-ATOM    772    C  ALA    A  117     0.00     0.00
-ATOM    773    O  ALA    A  117    17.14     0.25
-ATOM    774   CB  ALA    A  117    49.51     0.72
-ATOM    775    N  ASN    A  118     0.00     0.00
-ATOM    776   CA  ASN    A  118     0.00     0.00
-ATOM    777    C  ASN    A  118     0.00     0.00
-ATOM    778    O  ASN    A  118     0.00     0.00
-ATOM    779   CB  ASN    A  118     3.62     0.05
-ATOM    780   CG  ASN    A  118     0.00     0.00
-ATOM    781  OD1  ASN    A  118    20.36     0.30
-ATOM    782  ND2  ASN    A  118    38.28     0.56
-ATOM    783    N  ALA    A  119     0.00     0.00
-ATOM    784   CA  ALA    A  119     0.00     0.00
-ATOM    785    C  ALA    A  119     2.42     0.04
-ATOM    786    O  ALA    A  119     9.64     0.14
-ATOM    787   CB  ALA    A  119    36.23     0.53
-ATOM    788    N  TRP    A  120     3.28     0.05
-ATOM    789   CA  TRP    A  120     9.66     0.14
-ATOM    790    C  TRP    A  120     0.00     0.00
-ATOM    791    O  TRP    A  120    33.22     0.48
-ATOM    792   CB  TRP    A  120    27.78     0.40
-ATOM    793   CG  TRP    A  120     3.62     0.05
-ATOM    794  CD1  TRP    A  120    12.08     0.18
-ATOM    795  CD2  TRP    A  120     3.62     0.05
-ATOM    796  NE1  TRP    A  120    10.94     0.16
-ATOM    797  CE2  TRP    A  120     3.62     0.05
-ATOM    798  CE3  TRP    A  120    15.70     0.23
-ATOM    799  CZ2  TRP    A  120    22.94     0.33
-ATOM    800  CZ3  TRP    A  120    31.40     0.46
-ATOM    801  CH2  TRP    A  120    28.98     0.42
-ATOM    802    N  LYS    A  121     0.00     0.00
-ATOM    803   CA  LYS    A  121     3.62     0.05
-ATOM    804    C  LYS    A  121     0.00     0.00
-ATOM    805    O  LYS    A  121    28.93     0.42
-ATOM    806   CB  LYS    A  121    10.87     0.16
-ATOM    807   CG  LYS    A  121     2.42     0.04
-ATOM    808   CD  LYS    A  121    16.91     0.25
-ATOM    809   CE  LYS    A  121     9.66     0.14
-ATOM    810   NZ  LYS    A  121    57.96     0.84
-ATOM    811    N  SER    A  122     0.00     0.00
-ATOM    812   CA  SER    A  122     0.00     0.00
-ATOM    813    C  SER    A  122     2.42     0.04
-ATOM    814    O  SER    A  122     4.29     0.06
-ATOM    815   CB  SER    A  122     1.21     0.02
-ATOM    816   OG  SER    A  122    16.07     0.23
-ATOM    817    N  THR    A  123     0.00     0.00
-ATOM    818   CA  THR    A  123     0.00     0.00
-ATOM    819    C  THR    A  123     1.21     0.02
-ATOM    820    O  THR    A  123    32.14     0.47
-ATOM    821   CB  THR    A  123     9.66     0.14
-ATOM    822  OG1  THR    A  123    17.14     0.25
-ATOM    823  CG2  THR    A  123    10.87     0.16
-ATOM    824    N  LEU    A  124     0.00     0.00
-ATOM    825   CA  LEU    A  124     2.42     0.04
-ATOM    826    C  LEU    A  124     0.00     0.00
-ATOM    827    O  LEU    A  124     0.00     0.00
-ATOM    828   CB  LEU    A  124     1.21     0.02
-ATOM    829   CG  LEU    A  124     7.25     0.11
-ATOM    830  CD1  LEU    A  124    37.44     0.54
-ATOM    831  CD2  LEU    A  124    55.55     0.81
-ATOM    832    N  VAL    A  125     3.28     0.05
-ATOM    833   CA  VAL    A  125     0.00     0.00
-ATOM    834    C  VAL    A  125     0.00     0.00
-ATOM    835    O  VAL    A  125    28.93     0.42
-ATOM    836   CB  VAL    A  125     3.62     0.05
-ATOM    837  CG1  VAL    A  125    50.72     0.74
-ATOM    838  CG2  VAL    A  125    28.98     0.42
-ATOM    839    N  GLY    A  126     0.00     0.00
-ATOM    840   CA  GLY    A  126     9.66     0.14
-ATOM    841    C  GLY    A  126     0.00     0.00
-ATOM    842    O  GLY    A  126     0.00     0.00
-ATOM    843    N  HIS    A  127     0.00     0.00
-ATOM    844   CA  HIS    A  127     0.00     0.00
-ATOM    845    C  HIS    A  127     0.00     0.00
-ATOM    846    O  HIS    A  127     8.57     0.12
-ATOM    847   CB  HIS    A  127     7.25     0.11
-ATOM    848   CG  HIS    A  127     2.42     0.04
-ATOM    849  ND1  HIS    A  127    20.78     0.30
-ATOM    850  CD2  HIS    A  127    15.70     0.23
-ATOM    851  CE1  HIS    A  127    43.47     0.63
-ATOM    852  NE2  HIS    A  127    28.43     0.41
-ATOM    853    N  ASP    A  128     0.00     0.00
-ATOM    854   CA  ASP    A  128     1.21     0.02
-ATOM    855    C  ASP    A  128     1.21     0.02
-ATOM    856    O  ASP    A  128     2.14     0.03
-ATOM    857   CB  ASP    A  128     0.00     0.00
-ATOM    858   CG  ASP    A  128     0.00     0.00
-ATOM    859  OD1  ASP    A  128     1.07     0.02
-ATOM    860  OD2  ASP    A  128     0.00     0.00
-ATOM    861    N  THR    A  129     0.00     0.00
-ATOM    862   CA  THR    A  129     0.00     0.00
-ATOM    863    C  THR    A  129     0.00     0.00
-ATOM    864    O  THR    A  129     3.21     0.05
-ATOM    865   CB  THR    A  129     8.45     0.12
-ATOM    866  OG1  THR    A  129    30.00     0.44
-ATOM    867  CG2  THR    A  129     6.04     0.09
-ATOM    868    N  PHE    A  130     0.00     0.00
-ATOM    869   CA  PHE    A  130     0.00     0.00
-ATOM    870    C  PHE    A  130     0.00     0.00
-ATOM    871    O  PHE    A  130     0.00     0.00
-ATOM    872   CB  PHE    A  130     0.00     0.00
-ATOM    873   CG  PHE    A  130     0.00     0.00
-ATOM    874  CD1  PHE    A  130     0.00     0.00
-ATOM    875  CD2  PHE    A  130     0.00     0.00
-ATOM    876  CE1  PHE    A  130     0.00     0.00
-ATOM    877  CE2  PHE    A  130     0.00     0.00
-ATOM    878   CZ  PHE    A  130     0.00     0.00
-ATOM    879    N  THR    A  131     0.00     0.00
-ATOM    880   CA  THR    A  131     0.00     0.00
-ATOM    881    C  THR    A  131     0.00     0.00
-ATOM    882    O  THR    A  131     0.00     0.00
-ATOM    883   CB  THR    A  131     7.25     0.11
-ATOM    884  OG1  THR    A  131     9.64     0.14
-ATOM    885  CG2  THR    A  131    13.28     0.19
-ATOM    886    N  LYS    A  132     2.19     0.03
-ATOM    887   CA  LYS    A  132     0.00     0.00
-ATOM    888    C  LYS    A  132     0.00     0.00
-ATOM    889    O  LYS    A  132    13.93     0.20
-ATOM    890   CB  LYS    A  132    22.94     0.33
-ATOM    891   CG  LYS    A  132     1.21     0.02
-ATOM    892   CD  LYS    A  132    26.57     0.39
-ATOM    893   CE  LYS    A  132     0.00     0.00
-ATOM    894   NZ  LYS    A  132    19.68     0.29
-ATOM    895    N  VAL    A  133     1.09     0.02
-ATOM    896   CA  VAL    A  133     2.42     0.04
-ATOM    897    C  VAL    A  133    26.57     0.39
-ATOM    898    O  VAL    A  133    36.43     0.53
-ATOM    899   CB  VAL    A  133     0.00     0.00
-ATOM    900  CG1  VAL    A  133    33.81     0.49
-ATOM    901  CG2  VAL    A  133    35.02     0.51
-ATOM    903  C11  BTN    A  300     0.00     0.00
-ATOM    904  O11  BTN    A  300     7.50     0.11
-ATOM    905  O12  BTN    A  300    19.29     0.28
-ATOM    906  C10  BTN    A  300     0.00     0.00
-ATOM    907   C9  BTN    A  300     2.42     0.04
-ATOM    908   C8  BTN    A  300     0.00     0.00
-ATOM    909   C7  BTN    A  300     1.21     0.02
-ATOM    910   C2  BTN    A  300     2.42     0.04
-ATOM    911   S1  BTN    A  300     0.00     0.00
-ATOM    912   C6  BTN    A  300     0.00     0.00
-ATOM    913   C5  BTN    A  300     1.21     0.02
-ATOM    914   N1  BTN    A  300     0.00     0.00
-ATOM    915   C3  BTN    A  300     0.00     0.00
-ATOM    916   O3  BTN    A  300     0.00     0.00
-ATOM    917   N2  BTN    A  300     0.00     0.00
-ATOM    918   C4  BTN    A  300     4.83     0.07
-RES               ALA    A   13    39.69     0.58
-RES               GLU    A   14   107.47     1.56
-RES               ALA    A   15    77.96     1.13
-RES               GLY    A   16    15.36     0.22
-RES               ILE    A   17     1.21     0.02
-RES               THR    A   18    52.71     0.77
-RES               GLY    A   19    18.11     0.26
-RES               THR    A   20    56.00     0.81
+RES               ALA    A   13    39.69    32.80
+RES               GLU    A   14   107.47    50.22
+RES               ALA    A   15    77.96    64.43
+RES               GLY    A   16    15.36    15.83
+RES               ILE    A   17     1.21     0.62
+RES               THR    A   18    52.71    32.34
+RES               GLY    A   19    18.11    18.67
+RES               THR    A   20    56.00    34.35
 RES               TRP    A   21     0.00     0.00
-RES               TYR    A   22    76.67     1.11
-RES               ASN    A   23    12.99     0.19
-RES               GLN    A   24   106.79     1.55
-RES               LEU    A   25    75.11     1.09
-RES               GLY    A   26    48.95     0.71
+RES               TYR    A   22    76.67    30.07
+RES               ASN    A   23    12.99     6.95
+RES               GLN    A   24   106.79    49.90
+RES               LEU    A   25    75.11    39.32
+RES               GLY    A   26    48.95    50.47
 RES               SER    A   27     0.00     0.00
-RES               THR    A   28    26.67     0.39
-RES               PHE    A   29     1.21     0.02
-RES               ILE    A   30    49.38     0.72
-RES               VAL    A   31     3.21     0.05
-RES               THR    A   32    78.70     1.14
-RES               ALA    A   33     5.36     0.08
-RES               GLY    A   34    19.21     0.28
-RES               ALA    A   35    97.65     1.42
-RES               ASP    A   36    95.20     1.38
-RES               GLY    A   37     1.21     0.02
-RES               ALA    A   38    21.60     0.31
-RES               LEU    A   39     2.28     0.03
-RES               THR    A   40    74.96     1.09
-RES               GLY    A   41    28.65     0.42
-RES               THR    A   42    30.41     0.44
+RES               THR    A   28    26.67    16.36
+RES               PHE    A   29     1.21     0.53
+RES               ILE    A   30    49.38    25.32
+RES               VAL    A   31     3.21     1.95
+RES               THR    A   32    78.70    48.28
+RES               ALA    A   33     5.36     4.43
+RES               GLY    A   34    19.21    19.80
+RES               ALA    A   35    97.65    80.70
+RES               ASP    A   36    95.20    50.91
+RES               GLY    A   37     1.21     1.24
+RES               ALA    A   38    21.60    17.85
+RES               LEU    A   39     2.28     1.19
+RES               THR    A   40    74.96    45.98
+RES               GLY    A   41    28.65    29.53
+RES               THR    A   42    30.41    18.66
 RES               TYR    A   43     0.00     0.00
-RES               GLU    A   44    65.10     0.95
-RES               SER    A   45    16.21     0.24
-RES               ALA    A   46    59.51     0.86
-RES               VAL    A   47    60.38     0.88
-RES               GLY    A   48    51.12     0.74
-RES               ASN    A   49    69.10     1.00
-RES               ALA    A   50    18.21     0.26
-RES               GLU    A   51    64.32     0.93
-RES               SER    A   52    49.32     0.72
-RES               ARG    A   53   133.61     1.94
-RES               TYR    A   54     3.62     0.05
-RES               VAL    A   55   113.32     1.65
-RES               LEU    A   56     5.49     0.08
-RES               THR    A   57    83.69     1.22
-RES               GLY    A   58    10.32     0.15
-RES               ARG    A   59   140.67     2.04
-RES               TYR    A   60    18.65     0.27
-RES               ASP    A   61    65.58     0.95
-RES               SER    A   62    62.21     0.90
-RES               ALA    A   63    74.84     1.09
-RES               PRO    A   64    42.64     0.62
-RES               ALA    A   65    65.33     0.95
-RES               THR    A   66   143.51     2.09
-RES               ASP    A   67   109.81     1.60
-RES               GLY    A   68    73.23     1.06
-RES               SER    A   69    62.86     0.91
-RES               GLY    A   70    26.03     0.38
-RES               THR    A   71     7.50     0.11
-RES               ALA    A   72    63.39     0.92
-RES               LEU    A   73    10.21     0.15
-RES               GLY    A   74    18.94     0.28
-RES               TRP    A   75     4.58     0.07
-RES               THR    A   76    56.98     0.83
+RES               GLU    A   44    65.10    30.42
+RES               SER    A   45    16.21    11.33
+RES               ALA    A   46    59.51    49.18
+RES               VAL    A   47    60.38    36.59
+RES               GLY    A   48    51.12    52.70
+RES               ASN    A   49    69.10    36.95
+RES               ALA    A   50    18.21    15.05
+RES               GLU    A   51    64.32    30.06
+RES               SER    A   52    49.32    34.49
+RES               ARG    A   53   133.61    50.42
+RES               TYR    A   54     3.62     1.42
+RES               VAL    A   55   113.32    68.68
+RES               LEU    A   56     5.49     2.88
+RES               THR    A   57    83.69    51.34
+RES               GLY    A   58    10.32    10.64
+RES               ARG    A   59   140.67    53.08
+RES               TYR    A   60    18.65     7.31
+RES               ASP    A   61    65.58    35.07
+RES               SER    A   62    62.21    43.50
+RES               ALA    A   63    74.84    61.85
+RES               PRO    A   64    42.64    27.69
+RES               ALA    A   65    65.33    53.99
+RES               THR    A   66   143.51    88.04
+RES               ASP    A   67   109.81    58.72
+RES               GLY    A   68    73.23    75.49
+RES               SER    A   69    62.86    43.96
+RES               GLY    A   70    26.03    26.83
+RES               THR    A   71     7.50     4.60
+RES               ALA    A   72    63.39    52.39
+RES               LEU    A   73    10.21     5.35
+RES               GLY    A   74    18.94    19.52
+RES               TRP    A   75     4.58     1.73
+RES               THR    A   76    56.98    34.96
 RES               VAL    A   77     0.00     0.00
-RES               ALA    A   78    61.43     0.89
+RES               ALA    A   78    61.43    50.77
 RES               TRP    A   79     0.00     0.00
-RES               LYS    A   80   131.61     1.91
-RES               ASN    A   81    28.97     0.42
-RES               ASN    A   82   154.25     2.24
-RES               TYR    A   83   151.47     2.20
-RES               ARG    A   84    78.42     1.14
-RES               ASN    A   85    60.12     0.87
-RES               ALA    A   86    19.42     0.28
-RES               HIS    A   87   129.92     1.89
-RES               SER    A   88    12.51     0.18
-RES               ALA    A   89    34.61     0.50
+RES               LYS    A   80   131.61    57.22
+RES               ASN    A   81    28.97    15.49
+RES               ASN    A   82   154.25    82.48
+RES               TYR    A   83   151.47    59.40
+RES               ARG    A   84    78.42    29.59
+RES               ASN    A   85    60.12    32.15
+RES               ALA    A   86    19.42    16.05
+RES               HIS    A   87   129.92    60.15
+RES               SER    A   88    12.51     8.75
+RES               ALA    A   89    34.61    28.61
 RES               THR    A   90     0.00     0.00
-RES               THR    A   91    61.01     0.89
-RES               TRP    A   92     3.21     0.05
-RES               SER    A   93    79.34     1.15
-RES               GLY    A   94    18.37     0.27
-RES               GLN    A   95    85.45     1.24
-RES               TYR    A   96    24.39     0.35
-RES               VAL    A   97    56.76     0.82
-RES               GLY    A   98    45.60     0.66
-RES               GLY    A   99    55.97     0.81
-RES               ALA    A  100   101.45     1.47
-RES               GLU    A  101   144.37     2.10
-RES               ALA    A  102    19.76     0.29
-RES               ARG    A  103    95.69     1.39
+RES               THR    A   91    61.01    37.43
+RES               TRP    A   92     3.21     1.22
+RES               SER    A   93    79.34    55.48
+RES               GLY    A   94    18.37    18.94
+RES               GLN    A   95    85.45    39.93
+RES               TYR    A   96    24.39     9.56
+RES               VAL    A   97    56.76    34.40
+RES               GLY    A   98    45.60    47.02
+RES               GLY    A   99    55.97    57.70
+RES               ALA    A  100   101.45    83.85
+RES               GLU    A  101   144.37    67.46
+RES               ALA    A  102    19.76    16.33
+RES               ARG    A  103    95.69    36.11
 RES               ILE    A  104     0.00     0.00
-RES               ASN    A  105    69.07     1.00
-RES               THR    A  106    11.15     0.16
-RES               GLN    A  107   113.63     1.65
-RES               TRP    A  108    32.47     0.47
-RES               LEU    A  109    90.16     1.31
-RES               LEU    A  110    12.08     0.18
-RES               THR    A  111    56.59     0.82
-RES               SER    A  112    48.64     0.71
-RES               GLY    A  113    64.25     0.93
-RES               THR    A  114    67.21     0.98
-RES               THR    A  115    88.32     1.28
-RES               GLU    A  116   175.89     2.56
-RES               ALA    A  117    80.69     1.17
-RES               ASN    A  118    62.26     0.90
-RES               ALA    A  119    48.29     0.70
-RES               TRP    A  120   206.84     3.01
-RES               LYS    A  121   130.36     1.89
-RES               SER    A  122    23.98     0.35
-RES               THR    A  123    71.02     1.03
-RES               LEU    A  124   103.86     1.51
-RES               VAL    A  125   115.54     1.68
-RES               GLY    A  126     9.66     0.14
-RES               HIS    A  127   126.62     1.84
-RES               ASP    A  128     5.63     0.08
-RES               THR    A  129    47.71     0.69
+RES               ASN    A  105    69.07    36.93
+RES               THR    A  106    11.15     6.84
+RES               GLN    A  107   113.63    53.10
+RES               TRP    A  108    32.47    12.30
+RES               LEU    A  109    90.16    47.21
+RES               LEU    A  110    12.08     6.32
+RES               THR    A  111    56.59    34.72
+RES               SER    A  112    48.64    34.02
+RES               GLY    A  113    64.25    66.23
+RES               THR    A  114    67.21    41.24
+RES               THR    A  115    88.32    54.18
+RES               GLU    A  116   175.89    82.19
+RES               ALA    A  117    80.69    66.69
+RES               ASN    A  118    62.26    33.29
+RES               ALA    A  119    48.29    39.91
+RES               TRP    A  120   206.84    78.35
+RES               LYS    A  121   130.36    56.68
+RES               SER    A  122    23.98    16.77
+RES               THR    A  123    71.02    43.57
+RES               LEU    A  124   103.86    54.37
+RES               VAL    A  125   115.54    70.02
+RES               GLY    A  126     9.66     9.96
+RES               HIS    A  127   126.62    58.62
+RES               ASP    A  128     5.63     3.01
+RES               THR    A  129    47.71    29.27
 RES               PHE    A  130     0.00     0.00
-RES               THR    A  131    30.17     0.44
-RES               LYS    A  132    86.52     1.26
-RES               VAL    A  133   135.34     1.97
-RES               BTN    A  300    38.86     0.56
-CHAIN                    A       6881.90   100.00
-TOTAL                            6881.90         
+RES               THR    A  131    30.17    18.51
+RES               LYS    A  132    86.52    37.62
+RES               VAL    A  133   135.34    82.02
+RES               BTN    A  300    38.86     0.00
+CHAIN                    A       6881.90  4085.00
+TOTAL                            6881.90  4085.00
