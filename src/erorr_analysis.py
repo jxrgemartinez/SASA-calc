@@ -32,7 +32,7 @@ def calculate_accuracy(rsa_value, txt_value):
         return None
     return ((txt_value - rsa_value) / rsa_value) * 100
 
-def save_results_to_csv(results, filename='errors.csv'):
+def save_results_to_csv(results, filename='res/errors.csv'):
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['PDB ID', 'NACCESS', 'CUSTOM', 'ERROR (%)'])
