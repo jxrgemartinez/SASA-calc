@@ -8,3 +8,5 @@ dependencies:
   - python=3.9
   - biopython
   - numpy
+  - matplotlib
+  - pandas
