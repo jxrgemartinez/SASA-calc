@@ -118,33 +118,31 @@ class Sphere:
     
     def _generate_unit_sphere_points(self): # Sphere of radius 1 to reescale after
         points = []
-        inc = np.pi * (3 - np.sqrt(5))  # Calculate the golden angle for point distribution
-        offset = 2 / self.n_points  # Determine vertical spacing between points
-
-        for i in range(self.n_points):
-            y = i * offset - 1 + (offset / 2)  
-            r = np.sqrt(1 - y * y)  
-            phi = i * inc  
-            x = np.cos(phi) * r  
-            z = np.sin(phi) * r  
-    
-            points.append([x, y, z])  
+        for k in range(self.n_points):
+            theta = np.arccos(1 - 2 * (k + 0.5) / self.n_points)  # polar angle
+            phi = np.pi * (1 + np.sqrt(5)) * k  # azimuthal angle (golden angle approximation)
+            
+            x = np.sin(theta) * np.cos(phi)  # x coordinate
+            y = np.sin(theta) * np.sin(phi)  # y coordinate
+            z = np.cos(theta)  # z coordinate
+            
+            points.append([x, y, z])
         
         return np.array(points)
 
-    def rescale_sphere(self, center_atom, sonde_radius):
+    def rescale_sphere(self, center_atom, probe_radius):
         # Rescale and relocate the sphere
-        radius = center_atom.rad_vdw + sonde_radius
+        radius = center_atom.rad_vdw + probe_radius
         adjusted_points = (self.unit_sphere_points * radius) + center_atom.coord
         
         return adjusted_points
 
   
 class SASACalculator:
-    def __init__(self, protein, n_points=100, sonde_radius=1.4):
+    def __init__(self, protein, n_points=100, probe_radius=1.4):
         self.protein = protein
         self.sphere = Sphere(n_points)
-        self.sonde_radius = sonde_radius
+        self.probe_radius = probe_radius
         self.protein.total_absolute_sasa = 0  
 
     def run(self):
@@ -152,14 +150,14 @@ class SASACalculator:
             atom_index = self.protein.atom_index_map[atom.serial]
             self.protein.determine_neighbors(atom_index)
 
-            rescaled_sphere_points = self.sphere.rescale_sphere(atom, self.sonde_radius)
+            rescaled_sphere_points = self.sphere.rescale_sphere(atom, self.probe_radius)
             accessible_points = 0
 
             for point in rescaled_sphere_points:
-                if all(np.linalg.norm(point - neighbor.coord) >= (neighbor.rad_vdw + self.sonde_radius) for neighbor in atom.neighbors):
+                if all(np.linalg.norm(point - neighbor.coord) >= (neighbor.rad_vdw + self.probe_radius) for neighbor in atom.neighbors):
                     accessible_points += 1
 
-            sphere_area = 4 * np.pi * (atom.rad_vdw + self.sonde_radius) ** 2
+            sphere_area = 4 * np.pi * (atom.rad_vdw + self.probe_radius) ** 2
             accessible_area = (accessible_points / len(rescaled_sphere_points)) * sphere_area
             atom.abs_sasa = accessible_area
             self.protein.total_absolute_sasa += accessible_area  # Accumulate total SASA
